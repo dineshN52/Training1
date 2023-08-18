@@ -1,17 +1,36 @@
-﻿namespace Training {
-   internal class Program {
-         public static void Main (string[] args) {
-            int n1 = 0, n2 = 1, n3, i, number;
-            Console.Write ("Enter the number of elements: ");
-            number = int.Parse (Console.ReadLine ());
-            Console.Write (n1 + " " + n2 + " "); //printing 0 and 1    
-            for (i = 2; i < number; ++i) //loop starts from 2 because 0 and 1 are already printed    
-            {
-               n3 = n1 + n2;
-               Console.Write (n3 + " ");
-               n1 = n2;
-               n2 = n3;
+﻿using System;
+using System.Runtime.CompilerServices;
+namespace Training {
+  
+
+   namespace LCMGCD {
+      internal class Program {
+         static int gcd (int a, int b) {
+            while (b != 0) {
+               int temp = b;
+               b = a % b; a = temp;
             }
+            return a;
          }
+         static int lcm (int a, int b) {
+            return (a * b) / gcd (a, b);
+         }
+         static void Main (string[] args) {
+            Console.WriteLine ("Enter the first number");
+            int num1 = int.Parse (Console.ReadLine ());
+            if (num1 <= 0) {
+               Console.WriteLine ("Enter a Positive integer");
+            }
+            Console.WriteLine ("Enter the other number");
+            int num2 = int.Parse (Console.ReadLine ());
+            if (num2 <= 0) {
+               Console.WriteLine ("Enter a Positive integer");
+            }
+            int LCM = lcm (num1, num2);
+            int GCD = gcd (num1, num2);
+            Console.WriteLine ($"LCM of {num1} and {num2} is {LCM}");
+            Console.WriteLine ($"GCD of {num1} and {num2} is {GCD}");
+         }
+      }
    }
 }
