@@ -1,27 +1,22 @@
 ﻿using System;
-namespace Training {
-   namespace Prime {
-      class Program {
-         static bool IsPrime (int num) {
-            if (num <= 1)
+namespace Prime {
+   class Program {
+      static bool IsPrime (int b) {
+         if (b <= 1)
+            return false;
+         for (int i = b - 1; i > 1;i--)
+            if (b % i == 0)
                return false;
-            else if (num == 2 & num == 3)
-               return true;
-            for (int i = num - 1; i > 1; i--) {
-               if (num % i == 0)
-                  return false;
-            }
-            return true;
-         }
-         static void Main (string[] args) {
-            Console.Write ("Enter a number: ");
-            int number = int.Parse (Console.ReadLine ());
-
-            if (IsPrime (number))
-               Console.WriteLine ($"{number} is a prime number.");
-            else
-               Console.WriteLine ($"{number} is not a prime number.");
-         }
+         return true;
+      }
+      static void Main (string[] args) {
+         Console.Write ("Enter a number:");
+         int a = int.Parse (Console.ReadLine ());
+         if (IsPrime (a))
+            Console.WriteLine ($"{a} is a prime number.");
+         else
+            Console.WriteLine ($"{a} is not a prime number.");
+         Console.ReadKey ();
       }
    }
 }
