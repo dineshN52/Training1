@@ -12,10 +12,7 @@ namespace Prime {
       static void Main (string[] args) {
          Console.Write ("Enter a number:");
          int a = int.Parse (Console.ReadLine ());
-         if (IsPrime (a))
-            Console.WriteLine ($"{a} is a prime number.");
-         else
-            Console.WriteLine ($"{a} is not a prime number.");
+         a*= (IsPrime (a)) ? Console.WriteLine ($"{a} is a prime number.");
          Console.ReadKey ();
       }
    }
