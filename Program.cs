@@ -1,5 +1,5 @@
 ﻿using system
-namespace fibonocci {
+namespace Training {
    internal class Program {
       public static void Main (string[] args) {
          int n1 = 0, n2 = 1, n3, number;// n1 & n2 were the input, n3 & number were temporary variable
