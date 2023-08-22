@@ -3,8 +3,7 @@ namespace Palindrome {
    class Program {
       static bool IsPalindrome (string input) {
          input = input.ToLower (); // Convert the input to lowercase for case-insensitive comparison
-         int left = 0;
-         int right = input.Length - 1;
+         int left = 0, right = input.Length - 1;
          while (left < right) {
             if (input[left] != input[right])
                return false;
@@ -16,10 +15,7 @@ namespace Palindrome {
       static void Main (string[] args) {
          Console.Write ("Enter a string: ");
          string input = Console.ReadLine ();
-         if (IsPalindrome (input))
-            Console.WriteLine ("Given input is a palindrome.");
-         else
-            Console.WriteLine ("Given input is not a palindrome.");
+         Console.WriteLine (string.Concat ($"{input}, is", IsPalindrome (input) ? " a palindrome." : " not a palindrome."));
          Console.ReadKey ();
       }
    }
