@@ -15,7 +15,7 @@ namespace Palindrome {
       static void Main (string[] args) {
          Console.Write ("Enter a string: ");
          string input = Console.ReadLine ();
-         Console.WriteLine (string.Concat ($"{input}, is", IsPalindrome (input) ? " a palindrome." : " not a palindrome."));
+         Console.WriteLine ($"{input}, is { (IsPalindrome (input) ? " a palindrome." : " not a palindrome.")}");
          Console.ReadKey ();
       }
    }
