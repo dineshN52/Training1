@@ -50,7 +50,7 @@ namespace NandR {
             intToW.Append (int_to_words (thousands)).Append (" ").Append (mult[3]);
             n %= 1000;
             if (n > 0) 
-               intToW.Append (" ");            
+              intToW.Append (" ");            
          }
          else if (n == 3) {
             int hundreds = (int)n / 100;
@@ -66,9 +66,11 @@ namespace NandR {
             } else if (n >= 10 && n < 20) {
                intToW.Append (teens[n - 10]);
             }
+            //else if (n > 0)
+              // intToW.Append (int_to_words (n));
          }
          else if (a==1) {
-            intToW.Append (ones[n - 1]);
+           intToW.Append (ones[n - 1]);
          } 
          return intToW.ToString ();
       }
