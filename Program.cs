@@ -14,7 +14,7 @@ namespace Numconv {
          string hex = "";
          while (value > 0) {
             int remainder = value % 16;
-            hex = GetHexDigit (remainder) + hex;
+            hex += GetHexDigit (remainder);
             value /= 16;
          }
          return hex;
@@ -23,7 +23,7 @@ namespace Numconv {
          string binary = "";
          while (value > 0) {
             int remainder = value % 2;
-            binary = remainder + binary;
+            binary += remainder;
             value /= 2;
          }
          if (binary == "")
