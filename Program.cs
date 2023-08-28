@@ -1,16 +1,21 @@
 ﻿using System;
-namespace multitable {
+namespace diamond {
    class Program {
       static void Main (string[] args) {
-         int maxTable = 10, tableSize = 10;
-         for (int table = 1; table <= maxTable; table++) {
-            for (int multiplier = 1; multiplier <= tableSize; multiplier++) {
-               int result = table * multiplier;
-               Console.WriteLine ($"{table} * {multiplier} = {result}");
-            }
-            Console.WriteLine ();
-         }
+         Console.Write ("Enter the number of rows: ");
+         int n = int.Parse (Console.ReadLine ());
+         PrintDiamond (n);
          Console.ReadKey ();
+      }
+      static void PrintDiamond (int numRows) {
+         for (int i = 1; i <= numRows; i++) {
+            Console.Write (new string (' ', numRows - i));
+            Console.WriteLine (new string ('*', 2 * i - 1));
+         }
+         for (int i = numRows - 1; i >= 1; i--) {
+            Console.Write (new string (' ', numRows - i));
+            Console.WriteLine (new string ('*', 2 * i - 1));
+         }
       }
    }
 }
