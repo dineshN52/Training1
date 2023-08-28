@@ -13,8 +13,7 @@ namespace Numconv {
       static string IntToHex (int value) {
          string hex = "";
          while (value > 0) {
-            int remainder = value % 16;
-            hex += GetHexDigit (remainder);
+            hex += GetHexDigit (value % 16);
             value /= 16;
          }
          return hex;
@@ -22,8 +21,7 @@ namespace Numconv {
       static string IntToBi (int value) {
          string binary = "";
          while (value > 0) {
-            int remainder = value % 2;
-            binary += remainder;
+            binary += (value % 2);
             value /= 2;
          }
          if (binary == "")
