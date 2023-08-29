@@ -1,24 +1,23 @@
 ﻿using System;
-namespace reversenumber {
+namespace DigitalRoot {
    class Program {
       static void Main (string[] args) {
-         Console.Write ("Enter a number: ");
-         int num = int.Parse (Console.ReadLine ());
-         int reversedNumber = ReverseNumber (num);
-         Console.WriteLine ($"Reversed number: {reversedNumber}");
-         Console.WriteLine (IsPalindrome (num) ? "The number is a palindrome." : "The number is not a palindrome");
+         Console.Write ("Enter the number: ");
+         int a = int.Parse (Console.ReadLine ());
+         Console.WriteLine ($"Digital root of {a} is {Root (a)}");
+         Console.ReadKey ();
       }
-      static int ReverseNumber (int a) { // reverse a number
-         int reverse = 0;
-         while (a > 0) {
-            int digit = a % 10;
-            reverse = reverse * 10 + digit;
-            a /= 10;
+      static int Root (int n) {
+         while (n >= 10) {
+            int sum = 0;
+            while (n > 0) {
+               sum += n % 10; n /= 10;
+            }
+            n = sum;
          }
-         return reverse;
-      }
-      static bool IsPalindrome (int b) {
-         return b == ReverseNumber (b);  // check number is a palindrome
+         if (n == 9)
+            return 0;
+         return n;
       }
    }
 }
