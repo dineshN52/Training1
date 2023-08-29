@@ -1,22 +1,24 @@
 ﻿using System;
-namespace Palindrome {
+namespace reversenumber {
    class Program {
-      static bool IsPalindrome (string input) {
-         input = input.ToLower (); // Convert the input to lowercase for case-insensitive comparison
-         int left = 0, right = input.Length - 1;
-         while (left < right) {
-            if (input[left] != input[right])
-               return false;
-            left++;
-            right--;
-         }
-         return true;
-      }
       static void Main (string[] args) {
-         Console.Write ("Enter a string: ");
-         string input = Console.ReadLine ();
-         Console.WriteLine ($"{input}, is { (IsPalindrome (input) ? " a palindrome." : " not a palindrome.")}");
-         Console.ReadKey ();
+         Console.Write ("Enter a number: ");
+         int num = int.Parse (Console.ReadLine ());
+         int reversedNumber = ReverseNumber (num);
+         Console.WriteLine ($"Reversed number: {reversedNumber}");
+         Console.WriteLine (IsPalindrome (num) ? "The number is a palindrome." : "The number is not a palindrome");
+      }
+      static int ReverseNumber (int a) { // reverse a number
+         int reverse = 0;
+         while (a > 0) {
+            int digit = a % 10;
+            reverse = reverse * 10 + digit;
+            a /= 10;
+         }
+         return reverse;
+      }
+      static bool IsPalindrome (int b) {
+         return b == ReverseNumber (b);  // check number is a palindrome
       }
    }
 }
