@@ -10,9 +10,8 @@ namespace diamond {
       static void PrintDiamond (int numRows) {
          for (int i = 1; i <= numRows * 2 - 1; i++) {
             int spaces = Math.Abs (numRows - i);
-            int stars = numRows * 2 - 1 - 2 * spaces;
             Console.Write (new string (' ', spaces));
-            Console.WriteLine (new string ('*', stars));
+            Console.WriteLine (new string ('*', 2 * (numRows - spaces) - 1));
          }
       }
    }
