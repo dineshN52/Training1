@@ -3,7 +3,7 @@ namespace DigitalRoot {
    class Program {
       static void Main (string[] args) {
          Console.Write ("Enter the number: ");
-         int a = int.Parse (Console.ReadLine ());
+         int a = int.TryParse  (Console.ReadLine (),out int a);
          Console.WriteLine ($"Digital root of {a} is {Root (a)}");
          Console.ReadKey ();
       }
@@ -15,8 +15,6 @@ namespace DigitalRoot {
             }
             n = sum;
          }
-         if (n == 9)
-            return 0;
          return n;
       }
    }
