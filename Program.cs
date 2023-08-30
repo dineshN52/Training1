@@ -1,23 +1,22 @@
 ﻿using System;
-namespace DigitalRoot {
+namespace pascals {
    class Program {
       static void Main (string[] args) {
-         Console.Write ("Enter the number: ");
-         int a = int.Parse (Console.ReadLine ());
-         Console.WriteLine ($"Digital root of {a} is {Root (a)}");
+         Console.Write ("Enter the number of rows: ");
+         int numRows = int.Parse (Console.ReadLine ());
+         PascalsTriangle (numRows);
          Console.ReadKey ();
       }
-      static int Root (int n) {
-         while (n >= 10) {
-            int sum = 0;
-            while (n > 0) {
-               sum += n % 10; n /= 10;
+      static void PascalsTriangle (int numRows) {
+         for (int i = 0; i < numRows; i++) {
+            int num = 1;
+            Console.Write (new string (' ', numRows - i - 1)); // Print leading spaces
+            for (int j = 0; j <= i; j++) {
+               Console.Write (num + " ");
+               num = num * (i - j) / (j + 1);
             }
-            n = sum;
+            Console.WriteLine ();
          }
-         if (n == 9)
-            return 0;
-         return n;
       }
    }
 }
