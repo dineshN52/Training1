@@ -8,14 +8,19 @@ namespace diamond {
          Console.ReadKey ();
       }
       static void PrintDiamond (int numRows) {
-         for (int i = 1; i <= numRows; i++) {
-            Console.Write (new string (' ', numRows - i));
-            Console.WriteLine (new string ('*', 2 * i - 1));
+         for (int i = 1; i <= numRows * 2 - 1; i++) {
+            int spaces = Math.Abs (numRows - i), stars = numRows * 2 - 1 - 2 * spaces;
+            Console.Write (new string (' ', spaces));
+            Console.WriteLine (new string ('*', stars));
          }
-         for (int i = numRows - 1; i >= 1; i--) {
-            Console.Write (new string (' ', numRows - i));
-            Console.WriteLine (new string ('*', 2 * i - 1));
-         }
+        // for (int i = 1; i <= numRows; i++) {
+        //    Console.Write (new string (' ', numRows - i));
+        //  Console.WriteLine (new string ('*', 2 * i - 1));
+        // }
+        // for (int i = numRows - 1; i >= 1; i--) {
+          //  Console.Write (new string (' ', numRows - i));
+          //  Console.WriteLine (new string ('*', 2 * i - 1));
+        // }
       }
    }
 }
