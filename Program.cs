@@ -1,45 +1,18 @@
-﻿using System;
-namespace PasswordChecker {
-   class Program {
+﻿using System.Text;
+namespace ReduceString {
+   internal class Program {
       static void Main (string[] args) {
-         Console.Write ("Enter the password: ");
-         string pass = Console.ReadLine ();
-         Console.WriteLine (IsStrongPassword (pass) ? "Password is strong." : "Password is weak.");
+         StringBuilder reduced = new StringBuilder ();
+         Console.Write ("Enter the string: ");
+         string s = Console.ReadLine ();
+         if (s.Length > 0) {
+            reduced.Append (s[0]);
+            for (int i = 1; i < s.Length; i++)
+               if (s[i] != s[i - 1])
+                  reduced.Append (s[i]);
+         }
+         Console.WriteLine (reduced.ToString ());
          Console.ReadKey ();
-      }
-      static bool IsStrongPassword (string password) {
-         if (password.Length < 6) {
-            Console.WriteLine ("Your password has less than 6 letters");
-            return false;
-         }
-         var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; var lowerCase = "abcdefghijklmnopqrstuvwxyz";
-         var specialChar = ":!@#$%^&*()-_+=<>?"; var Digits = "0123456789";
-         bool hasUpperCase = false, hasLowerCase = false, hasSpecialCharacter = false, hasNumericDigit = false;
-         foreach (char c in password) {
-            switch (c) {
-               case char u when upperCase.Contains (u):
-                  hasUpperCase = true;
-                  break;
-               case char l when lowerCase.Contains (l):
-                  hasLowerCase = true;
-                  break;
-               case char s when specialChar.Contains (s):
-                  hasSpecialCharacter = true;
-                  break;
-               case char n when Digits.Contains (n):
-                  hasNumericDigit = true;
-                  break;
-            }
-         }
-         if (!hasUpperCase == true)
-            Console.WriteLine ("Your password doesn't have Uppercase");
-         if (!hasLowerCase == true)
-            Console.WriteLine ("Your password doesn't have Lowercase");
-         if (!hasSpecialCharacter == true)
-            Console.WriteLine ("Your password doesn't have Special Charcter");
-         if (!hasNumericDigit == true)
-            Console.WriteLine ("Your password doesn't have Numeric digit");
-         return hasUpperCase && hasLowerCase && hasSpecialCharacter && hasNumericDigit;
       }
    }
 }
