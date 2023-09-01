@@ -3,7 +3,7 @@ namespace DigitalRoot {
    class Program {
       static void Main (string[] args) {
          Console.Write ("Enter the number: ");
-         int a = int.TryParse  (Console.ReadLine (),out int a);
+         int a = int.Parse  (Console.ReadLine ());
          Console.WriteLine ($"Digital root of {a} is {Root (a)}");
          Console.ReadKey ();
       }
