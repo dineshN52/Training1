@@ -1,5 +1,6 @@
 ﻿using System;
-namespace pascals {
+
+namespace Pascals {
    class Program {
       static void Main (string[] args) {
          Console.Write ("Enter the number of rows: ");
@@ -10,7 +11,7 @@ namespace pascals {
       static void PascalsTriangle (int numRows) {
          for (int i = 0; i < numRows; i++) {
             int num = 1;
-            Console.Write (new string(' ',numRows -i-1)); // Print leading spaces
+            Console.Write (new string (' ', numRows - i - 1)); // Print leading spaces
             for (int j = 0; j <= i; j++) {
                Console.Write ($"{num} ");
                num = num * (i - j) / (j + 1);
