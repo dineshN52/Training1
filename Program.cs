@@ -30,7 +30,7 @@ namespace PasswordChecker {
          Console.Write(!hasUpperCase?$"Your password does not have {cases[0]}":" ");
          Console.Write(!hasLowerCase?$"\nYour password does not have {cases[1]}": " ");
          Console.Write(!hasNumericDigit?$"\nYour password does not have {cases[2]}": " ");
-         Console.Write(!hasSpecialchar?$"\nYour password does not have {cases[3]}" : " ")
+         Console.Write (!hasSpecialchar ? $"\nYour password does not have {cases[3]}" : " ");
          return hasUpperCase && hasLowerCase && hasNumericDigit && hasSpecialchar;
       }
    }
