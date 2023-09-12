@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace Pascals {
    class Program {
       static void Main (string[] args) {
