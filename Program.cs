@@ -13,7 +13,7 @@ namespace Pascals {
             Console.Write (new string (' ', numRows - i - 1)); // Print leading spaces
             for (int j = 0; j <= i; j++) {
                Console.Write ($"{num} ");
-               num = num * (i - j) / (j + 1);
+               num = (num * (i - j)) / (j + 1);
             }
             Console.WriteLine ();
          }
