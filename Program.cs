@@ -5,6 +5,7 @@ class Program {
       string[] words = { "Aegilops", "Aim@", "3Bill", "Lilly" };
       string longestAbecedarianWord = FindLongestAbecedarian (words);
       Console.WriteLine (string.IsNullOrEmpty (longestAbecedarianWord) ? "No abecedarian word found." : $"The longest abecedarian word is: {longestAbecedarianWord}");
+      Console.ReadKey ();
    }
    static bool IsValidInput (string input) {
       string pattern = "^[a-zA-Z]"; // Regular expression pattern to match only alphabetical characters
