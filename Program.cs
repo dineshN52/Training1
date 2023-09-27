@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Text;
 namespace NandR {
+   /// <summary>NUMBER TO WORDS & ROMAN</summary>
    class Program {
+      /// <summary>Method which gets input from user and passes to other methods which converts numerical value to roman numerals and english words(According to international numerical system)</summary>
+      /// <param name="args"></param>
       static void Main (string[] args) {
          long n;
-         Console.WriteLine ("Enter the value:");
+         Console.Write ("Enter the number: ");
          n = long.Parse (Console.ReadLine ());
-         Console.WriteLine ("Original integer value: " + n);
-         Console.WriteLine ("Roman numerals of the said integer value:");
+         Console.WriteLine ("Original numerical value: " + n);
+         Console.WriteLine ("Roman numerals of the given number:");
          Console.WriteLine (int_to_Roman (n));
          Console.WriteLine ("Number into words:");
          Console.WriteLine (IntToWords (n));
          Console.ReadKey ();
       }
+      /// <summary>This method compares the length of the input numericals and pass to differnt methods which can convert the number to equivalent english words</summary>
+      /// <param name="n"></param>
+      /// <returns>It returns the string of words build by the function equivalent to the number</returns>
       public static string IntToWords (long n) {
          string[] ones = new string[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
          string[] teens = new string[] { "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
@@ -37,6 +43,12 @@ namespace NandR {
          }
          return intToW.ToString ();
       }
+      /// <summary>
+      /// Function which specifically add 
+      /// </summary>
+      /// <param name="n"></param>
+      /// <param name="mult"></param>
+      /// <param name="intToW"></param>
       private static void HandleTrillion (long n, string[] mult, StringBuilder intToW) {
          long trillions = n / 1000000000000;
          intToW.Append (IntToWords (trillions)).Append (" ").Append (mult[6]).Append (" ");
