@@ -1,34 +1,44 @@
-﻿//------------------------------------------------------------------------------------------------------------------------------------------------
-//Training~A training program for new joinees at metamation,Batch-July 2023
-//Copyright(c) Metamation India
-//------------------------------------------------------------------------------------------------------------------------------------------------
-//Program.cs
-//REDUCE A STRING 
-//Ask the user to give a string,check the string for continuos repetition of caharcter and remove all the repetitions and thereby reduce a string
-//For Example,If the user input is " aadammm" ,the produced output will be "adam", thus reduce the repetition of letter 'a' and 'm'
-//------------------------------------------------------------------------------------------------------------------------------------------------
+﻿// ------------------------------------------------------------------------------------------------------------------------------
+// Training~A training program for new joinees at metamation,Batch-July 2023
+// Copyright(c) Metamation India
+// ------------------------------------------------------------------------------------------------------------------------------
+// Program.cs
+// Reduce a string
+// Ask the user to give a string,check it for double repetition of character and remove all the repetitions and reduce a string
+// For Example,If the user input is "aadammm",the produced output will be "dam", thus reduce the repetition of letter 'a' and 'm'
+// ------------------------------------------------------------------------------------------------------------------------------
 using System.Text;
 namespace ReduceString {
    #region Program-------------------------------------
-   /// <summary>REDUCE A STRING WITH REPETITIONS</summary>
+   /// <summary>Reduce string with repetitions</summary>
    internal class Program {
-      #region Method------------------------------
-      /// <summary>Method get the input string from user and craete a new string with no repetition by replacing all repetition with single character</summary>
+      #region Methods------------------------------
+      /// <summary>Get the input string from user and pass it other function to reduce double repetitions</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         StringBuilder reduced = new StringBuilder ();
          Console.Write ("Enter the string: ");
          string s = Console.ReadLine ();
-         if (s.Length > 0) {
-            reduced.Append (s[0]);
-            for (int i = 1; i < s.Length; i++)
-               if (s[i] != s[i - 1])
-                  reduced.Append (s[i]);
-         }
-         Console.WriteLine ($"Reduced string: {reduced.ToString ()}");
+         Console.WriteLine ($"Input string : {s}\nOutput string :{ReduceString (s)}");
          Console.ReadKey ();
       }
-      #endregion 
+      /// <summary>
+      /// Creates a stack to store the charcter and chec for repetition by comparing and pop it out if have repetition
+      /// </summary>
+      /// <param name="input">Input string from main function</param>
+      /// <returns>String with reduction in charctewith double repetition</returns>
+      static string ReduceString (string input) {
+         Stack<char> stack = new Stack<char> ();
+         foreach (char c in input) {
+            if (stack.Count > 0 && stack.Peek () == c)
+               stack.Pop ();
+            else
+               stack.Push (c);
+         }
+         char[] resultArray = stack.ToArray ();// Convert the stack to a string
+         Array.Reverse (resultArray);//Reverse it to get the correct order.
+         return new string (resultArray);
+      }
+      #endregion
    }
    #endregion 
 }
