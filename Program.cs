@@ -11,8 +11,10 @@
 using System;
 using System.Text.RegularExpressions;
 namespace Abcederain {
+   #region Program-------------------------------------
    /// <summary>Longest abcederian word</summary>
    class Program {
+      #region Methods------------------------------------------
       /// <summary>Method to check whether input has any abcederian word, if it has returns the longest word</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
@@ -53,5 +55,7 @@ namespace Abcederain {
          }
          return longestAbecedarianWord;
       }
+      #endregion 
    }
+   #endregion 
 }
