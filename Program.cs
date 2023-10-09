@@ -18,15 +18,15 @@ namespace PasswordChecker {
       /// <summary>Main method gets the user input and passes it to other function to check whether its meet the requirements</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         Console.WriteLine ("Welcome! Your Password must be 6 characters in length \nAnd should have an uppercase,lowercase,special character & number");
+         Console.WriteLine ($"Password must be 6 characters in length and should have an uppercase, lowercase, special character and number");
          Console.Write ("Enter the password: ");
          while (true) {
             string pass = Console.ReadLine ();
             if (IsStrongPassword (pass)) {
-               Console.WriteLine ("\nPassword is strong.");
+               Console.WriteLine ("Password is strong.");
                break;
             } else
-               Console.WriteLine ("\nPassword is weak.Try again");
+               Console.WriteLine ("try again.");
          }
          Console.ReadKey ();
       }
@@ -35,19 +35,19 @@ namespace PasswordChecker {
       /// <returns>Returns the boolean output for all criteria, 
       /// For example,if input has uppercase letter it return True for hasUppercase & False if it doesn't have,same for other criteria</returns>
       static bool IsStrongPassword (string password) {
-         StringBuilder message = new StringBuilder ("Your password does not have ");
+         StringBuilder message = new ("Your password does not have ");
          string[] criteria = { "uppercase", "lowercase", "numerical digit", "special character" };
          string specialChar = @"\|!#$%&/()=?»«@{}.-;'<>_,";
          if (password.Length < 6) {
-            Console.WriteLine ("Password must be atleast 6 characters in length");
+            Console.Write ("Password must be atleast 6 characters in length,");
             return false;
          }
          bool[] criterionChecks = {
-                password.Any(char.IsUpper),
-                password.Any(char.IsLower),
-                password.Any(char.IsDigit),
-                password.Any(c => specialChar.Contains(c))
-            };
+            password.Any(char.IsUpper),
+            password.Any(char.IsLower),
+            password.Any(char.IsDigit),
+            password.Any(c => specialChar.Contains(c))
+         };
          bool isAlltrue = criterionChecks.All (check => check);
          if (!isAlltrue) {
             for (int i = 0; i < criteria.Length; i++) {
