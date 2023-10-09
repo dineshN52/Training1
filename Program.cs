@@ -25,7 +25,7 @@ namespace Isogram {
       /// <param name="s">String from user</param>
       /// <returns>It returns boolean output of true or false for IsIsogarm function(If Isogram:True,Not Isogram:False)</returns>
       static bool IsIsogram (string s) {
-         List<char> seenCharacters = new List<char> ();
+         List<char> seenCharacters = new ();
          foreach (char c in s) {
             if (seenCharacters.Contains (c))
                return false;
