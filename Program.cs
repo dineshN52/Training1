@@ -1,12 +1,12 @@
-﻿//-------------------------------------------------------------------------
-//Training~A training program for new joinees at metamation,Batch-July 2023
-//Copyright(c) Metamation India
-//-------------------------------------------------------------------------
-//Program.cs
-//Factorial of a number
-//Ask the user to give a number and produces the factorial value of it
-//For example, The given number is 5, Produced output is 120
-//-------------------------------------------------------------------------
+﻿// ------------------------------------------------------------------------
+// Training~A training program for new joinees at metamation,Batch-July 2023
+// Copyright(c) Metamation India
+// ------------------------------------------------------------------------
+// Program.cs
+// Factorial of a number
+// Ask the user to give a number and produces the factorial value of it
+// For example, The given number is 5, Produced output is 120
+// ------------------------------------------------------------------------
 namespace Factorial {
    #region class program------------------------
    /// <summary>Factorial number</summary>
