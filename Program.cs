@@ -1,17 +1,19 @@
-﻿//-----------------------------------------------------------------------------------------------
-//Training~A training program for new joinees at metamation,Batch-July 2023
-//Copyright(c) Metamation India
-//-----------------------------------------------------------------------------------------------
-//Program.cs
-//ARMSTRONG NUMBER
-//Ask the user to give a number and check whether given number is armstrong or not
-//For example, The given number 3 7 1, produced output is 3 7 1 and 3 7 1 is an armstrong number
-//Ask the user to give a number and produce the nth armstrong number of the given number
-//For example, The given number is 12, Produced output: 12th armstrong number is 371
-//-----------------------------------------------------------------------------------------------
+﻿// ----------------------------------------------------------------------------------------------
+// Training~A training program for new joinees at metamation,Batch-July 2023
+// Copyright(c) Metamation India
+// ----------------------------------------------------------------------------------------------
+// Program.cs
+// Armstrong number
+// Ask the user to give a number and check whether given number is armstrong or not
+// For example, The given number 3 7 1, produced output is 3 7 1 and 3 7 1 is an armstrong number
+// Ask the user to give a number and produce the nth armstrong number of the given number
+// For example, The given number is 12, Produced output: 12th armstrong number is 371
+// ----------------------------------------------------------------------------------------------
 namespace Armstrong {
-   /// <summary>ARMSTRONG</summary>
+   #region class Program------------------------------
+   /// <summary>Armstrong number</summary>
    class Program {
+      #region Methods------------------------------------
       /// <summary>Method to find armstrong number</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
@@ -23,28 +25,27 @@ namespace Armstrong {
                result = Isarmstrong ((int)num);
                Console.WriteLine ($"Produced output: {result}");
                break;
-            } else {
+            } else
                Console.WriteLine ("Invalid input.Enter a non-negative integer");
-            }
          }
-         Console.WriteLine ((result == (double)num) ? $"{num} is an armstrong number" : $"{num} is not an armstrong number");// Check if the result is equal to given number             
+         Console.WriteLine ((result == (double)num) ? $"{num} is an armstrong number" : $"{num} is not an armstrong number");
          Console.Write ("Enter the nth value: ");
          while (true) {
             if (uint.TryParse (Console.ReadLine (), out n)) {
                NthArmstrong (n);
                break;
-            } else {
+            } else
                Console.WriteLine ("Invalid input.Enter an integer value");
-            }
          }
          Console.ReadKey ();
       }
       /// <summary>
-      /// This method finds sum of exponentials of each digits of given number with legth of number as power(Mathematical logic behind Armstrong numbers)
+      /// Method finds sum of exponentials of each digits of number with legth of number as power
+      /// (Mathematical logic behind Armstrong numbers)
       /// </summary>
       /// <param name="temp"></param>
-      /// <param name="digits">A variable to store the number of digits in the number</param>
-      /// <param name="digit">A variable to store the current digit  </param>"
+      /// <param name="digits">Variable to store the number of digits in the number</param>
+      /// <param name="digit">Variable to store the current digit  </param>"
       /// <returns>Return the produced output</returns>
       static double Isarmstrong (int temp) {
          double final = 0;
@@ -61,9 +62,7 @@ namespace Armstrong {
       /// <param name="number">A variable to keep track of the current number</param>
       /// <param name="count">A variable to keep track of the count of Armstrong numbers</param>
       static void NthArmstrong (uint n) {
-         int number = 1;
-         int count = 0;
-         int result = 0;
+         int number = 1, count = 0, result = 0;
          while (count < n) {
             if (Isarmstrong (number) == number) {
                count++;
@@ -73,5 +72,7 @@ namespace Armstrong {
          }
          Console.WriteLine ($"The {n}th Armstrong number is {result}");
       }
+      #endregion 
    }
+   #endregion 
 }
