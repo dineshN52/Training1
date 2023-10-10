@@ -3,13 +3,15 @@
 //Copyright(c) Metamation India
 //-------------------------------------------------------------------------
 //Program.cs
-//FACTORIAL OF A NUMBER
+//Factorial of a number
 //Ask the user to give a number and produces the factorial value of it
 //For example, The given number is 5, Produced output is 120
 //-------------------------------------------------------------------------
 namespace Factorial {
-   /// <summary>FACTORIAL</summary>
+   #region class program------------------------
+   /// <summary>Factorial number</summary>
    internal class Program {
+      #region Methods--------------------------
       /// <summary>Method to find factorial of a given number</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
@@ -18,9 +20,8 @@ namespace Factorial {
             if (uint.TryParse (Console.ReadLine (), out uint number)) {
                Console.WriteLine ($"Factorial of {number} is " + Factorial (number));
                break;
-            } else {
-               Console.WriteLine ("Invalid input.Enter the non-negative positive number");
-            }
+            } else
+               Console.WriteLine ("Invalid input.Enter a non-negative integer");  
          }
          Console.ReadKey ();
       }
@@ -38,5 +39,7 @@ namespace Factorial {
          }
          return fact;
       }
+      #endregion 
    }
+   #endregion 
 }
