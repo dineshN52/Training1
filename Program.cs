@@ -25,13 +25,11 @@ namespace Isogram {
       /// <param name="s">String from user</param>
       /// <returns>It returns boolean output of true or false for IsIsogarm function(If Isogram:True,Not Isogram:False)</returns>
       static bool IsIsogram (string s) {
-         List<char> seenCharacters = new ();
-         foreach (char c in s) {
-            if (seenCharacters.Contains (c))
-               return false;
-            seenCharacters.Add (c);
-         }
-         return true;
+         char[] n = s.Distinct ().ToArray ();
+         string n1 = new string (n);
+         if (n1.Length == s.Length)
+            return true;
+         return false;
       }
       #endregion 
    }
