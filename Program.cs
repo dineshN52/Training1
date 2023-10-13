@@ -7,7 +7,7 @@
 // For given list of words,Find the longest abecedrian word and returns it
 // For Example,in word "Aegilops",Letters are arranged in alphabetical order so, it is abecederaian
 // The word Aim is also arranged in alphabetical order but it is smaller in length,so it returns Aegilops as LongestAbecederian
-// ---------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------
 using System;
 namespace Abcederain {
    #region Program-------------------------------------
@@ -19,7 +19,7 @@ namespace Abcederain {
       static void Main (string[] args) {
          string[] words = { "Aegilops", "Aim", "Bill", "Lilly", };
          string longAbecedarian = FindLongestAbecedarian (words);
-         Console.WriteLine (string.IsNullOrEmpty (longAbecedarian) ? "No abecedarian word found." : 
+         Console.WriteLine (string.IsNullOrEmpty (longAbecedarian) ? "No abecedarian word found." :
             $"The longest abecedarian word is: {longAbecedarian}");
          Console.ReadKey ();
       }
