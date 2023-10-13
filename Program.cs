@@ -9,7 +9,6 @@
 // The word Aim is also arranged in alphabetical order but it is smaller in length,so it returns Aegilops as LongestAbecederian
 // ---------------------------------------------------------------------------------------------------------------------------
 using System;
-using System.Text.RegularExpressions;
 namespace Abcederain {
    #region Program-------------------------------------
    /// <summary>Longest abecederian word</summary>
@@ -18,22 +17,15 @@ namespace Abcederain {
       /// <summary>Method to check whether input has any abecederian word, if it has returns the longest word</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         string[] words = { "Aegilops", "Aim", "3Bill", "Lilly", };
+         string[] words = { "Aegilops", "Aim", "Bill", "Lilly", };
          string longAbecedarian = FindLongestAbecedarian (words);
          Console.WriteLine (string.IsNullOrEmpty (longAbecedarian) ? "No abecedarian word found." : 
             $"The longest abecedarian word is: {longAbecedarian}");
          Console.ReadKey ();
       }
-      /// <summary>Method to check whether it has only alphabetical characters using regular expression</summary>
-      /// <param name="input">Input words</param>
-      /// <returns>It returns true if it has only alphabets,false if it has numbers or special characters</returns>
-      static bool IsValidInput (string input) {
-         string pattern = "^[a-zA-Z]";
-         return Regex.IsMatch (input, pattern);
-      }
       /// <summary>Method to find whether a word has letters arranged in alphabetical order</summary>
       /// <param name="word">Input words</param>
-      /// <returns>It returns true if word is abcederian,false if it not abcederian</returns>
+      /// <returns>It returns true if word is abecederian,false if it not abecederian</returns>
       static bool IsAbecedarian (string word) {
          word = word.ToLower ();
          for (int i = 1; i < word.Length; i++) {
@@ -46,14 +38,14 @@ namespace Abcederain {
       /// <param name="words">Input words</param>
       /// <returns>Returns the longest Abcederain word</returns>
       static string FindLongestAbecedarian (string[] words) {
-         string longestAbecedarianWord = "";
+         string longabecedarian = "";
          foreach (string word in words) {
-            if (IsValidInput (word) && IsAbecedarian (word)) {
-               if (word.Length > longestAbecedarianWord.Length)
-                  longestAbecedarianWord = word;
+            if (IsAbecedarian (word)) {
+               if (word.Length > longabecedarian.Length)
+                  longabecedarian = word;
             }
          }
-         return longestAbecedarianWord;
+         return longabecedarian;
       }
       #endregion 
    }
