@@ -13,25 +13,15 @@ namespace Isogram {
    /// <summary>Isogram checker</summary>
    internal class Program {
       #region Method-------------------------
-      /// <summary>Method gets the input from user and passes into an IsIsogram method to check it isogram or not</summary>
+      /// <summary>Method gets the input from user and check it isogram or not by distinct() function</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
          Console.Write ("Enter the string: ");
          string s = Console.ReadLine ();
-         Console.WriteLine ($"{s} is {(IsIsogram (s.ToLower ()) ? "an" : "not an")} isogram");
+         Console.WriteLine ($"{s} is {(s.ToLower().Distinct ().Count () == s.Length ? "an" : "not an")} isogram");
          Console.ReadKey ();
       }
-      /// <summary>This method checks for the repetition of letter in input & produce output as Isogram or not</summary>
-      /// <param name="s">String from user</param>
-      /// <returns>It returns boolean output of true or false for IsIsogarm function(If Isogram:True,Not Isogram:False)</returns>
-      static bool IsIsogram (string s) {
-         char[] n = s.Distinct ().ToArray ();
-         string n1 = new string (n);
-         if (n1.Length == s.Length)
-            return true;
-         return false;
-      }
-      #endregion 
+      #endregion
    }
    #endregion 
 }
