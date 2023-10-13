@@ -34,9 +34,7 @@ namespace ReduceString {
             else
                stack.Push (c);
          }
-         char[] resultArray = stack.ToArray ();// Convert the stack to a string
-         Array.Reverse (resultArray);//Reverse it to get the correct order.
-         return new string (resultArray);
+         return new string (stack.Reverse ().ToArray ());
       }
       #endregion
    }
