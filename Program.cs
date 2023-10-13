@@ -22,29 +22,29 @@ namespace StringPermutation {
          Permute (input.ToCharArray (), 0, input.Length - 1);
          Console.ReadKey ();
       }
+
       /// <summary>Method passes the characters in the input words to swap function to produce permutation 
       ///  It also backtrack the swaps</summary>
       /// <param name="arr">Charcter array of input word</param>
       /// <param name="startIndex"></param>
       /// <param name="endIndex"></param>
-      static void Permute (char[] arr, int startIndex, int endIndex) {
-         if (startIndex == endIndex) {
+      static void Permute (char[] arr, int sIndex, int eIndex) {
+         if (sIndex == eIndex)
             Console.WriteLine (new string (arr));
-         } else {
-            for (int i = startIndex; i <= endIndex; i++) {
-               Swap (ref arr[i], ref arr[startIndex]);
-               Permute (arr, startIndex + 1, endIndex);
-               Swap (ref arr[i], ref arr[startIndex]);
+         else {
+            for (int i = sIndex; i <= eIndex; i++) {
+               Swap (ref arr[i], ref arr[sIndex]);
+               Permute (arr, sIndex + 1, eIndex);
+               Swap (ref arr[i], ref arr[sIndex]);
             }
          }
       }
+
       /// <summary>Method swaps the charcters in the word</summary>
       /// <param name="a"></param>
       /// <param name="b"></param>
       static void Swap (ref char a, ref char b) {
-         char temp = a;
-         a = b;
-         b = temp;
+         (b, a) = (a, b);
       }
       #endregion 
    }
