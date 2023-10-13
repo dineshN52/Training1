@@ -9,7 +9,7 @@
 // The word Aim is also arranged in alphabetical order but it is smaller in length,so it returns Aegilops as LongestAbecederian
 // ----------------------------------------------------------------------------------------------------------------------------
 using System;
-namespace Abcederain {
+namespace Abecederain {
    #region Program-------------------------------------
    /// <summary>Longest abecederian word</summary>
    class Program {
@@ -18,11 +18,12 @@ namespace Abcederain {
       /// <param name="args"></param>
       static void Main (string[] args) {
          string[] words = { "Aegilops", "Aim", "Bill", "Lilly", };
-         string longAbecedarian = FindLongestAbecedarian (words);
-         Console.WriteLine (string.IsNullOrEmpty (longAbecedarian) ? "No abecedarian word found." :
-            $"The longest abecedarian word is: {longAbecedarian}");
+         string result = LongAbecedarian (words);
+         Console.WriteLine (string.IsNullOrEmpty (result) ? "No abecedarian word found." :
+            $"The longest abecedarian word is: {result}");
          Console.ReadKey ();
       }
+
       /// <summary>Method to find whether a word has letters arranged in alphabetical order</summary>
       /// <param name="word">Input words</param>
       /// <returns>It returns true if word is abecederian,false if it not abecederian</returns>
@@ -34,18 +35,19 @@ namespace Abcederain {
          }
          return true;
       }
-      /// <summary>Method to check the longest of all abcederian words</summary>
+
+      /// <summary>Method to check the longest of all abecederian words</summary>
       /// <param name="words">Input words</param>
-      /// <returns>Returns the longest Abcederain word</returns>
-      static string FindLongestAbecedarian (string[] words) {
-         string longabecedarian = "";
+      /// <returns>Returns the longest Abecederain word</returns>
+      static string LongAbecedarian (string[] words) {
+         string longword = "";
          foreach (string word in words) {
             if (IsAbecedarian (word)) {
-               if (word.Length > longabecedarian.Length)
-                  longabecedarian = word;
+               if (word.Length > longword.Length)
+                  longword = word;
             }
          }
-         return longabecedarian;
+         return longword;
       }
       #endregion 
    }
