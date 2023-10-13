@@ -16,41 +16,28 @@ namespace Individualdigit {
       /// <summary>Function to print individual digits</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         Console.Write ("Enter the number:");
-         decimal number;
+         Console.Write ("Enter the number: ");
          while (true) {
-            if (decimal.TryParse (Console.ReadLine (), out number)) {
-               Individual (number);
+            if (double.TryParse (Console.ReadLine (), out double number)) {
+               Individualdigits (number);
                break;
             } else
                Console.WriteLine ("Invalid input.Please enter a valid numerical value.");
          }
          Console.ReadKey ();
       }
-      /// <summary>
-      /// Method converts input integer or decimal to string and split the number into substrings of integral and factorial part
-      /// </summary>
+
+      /// <summary>Method converts input integer or decimal to string 
+      /// and split the number into substrings of integral and factorial part</summary>
       /// <param name="number"></param>
-      static void Individual (decimal number) {
+      static void Individualdigits (double number) {
          string value = number.ToString ();
          if (value.Contains ('.')) {
-            string[] parts = value.Split ('.');//split input into two substrings(Integral and factorial part)
-            Console.Write ("Integral part digits are:");
-            Printdigit (parts[0].ToCharArray ());//Printing the integral part
-            Console.Write ("Factorial part digits are:");
-            Printdigit (parts[1].ToCharArray ());//printing the factorial part
-         } else {
-            Console.Write ("Individual digits are:");
-            Printdigit (value.ToCharArray ());
-         }
-      }
-      /// <summary>Method converts the input to array of characters and print it individually</summary>
-      /// <param name="chars"></param>
-      static void Printdigit (char[] chars) {
-         foreach (char c in chars) {
-            Console.Write ($"{c} ");
-         }
-         Console.WriteLine ();
+            string[] parts = value.Split ('.'); //split input into two substrings(Integral and factorial part)
+            Console.WriteLine ("Integral part digits are: {0}", string.Join (' ', parts[0].ToCharArray ()));
+            Console.WriteLine ("Factorial part digits are:{0}", string.Join (' ', parts[1].ToCharArray ()));
+         } else
+            Console.Write ("Individual digits are: {0}", string.Join (' ', value.ToCharArray ()));
       }
       #endregion 
    }
