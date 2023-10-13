@@ -3,25 +3,25 @@
 // Copyright(c) Metamation India
 // ---------------------------------------------------------------------------------------------------------------------------
 // Program.cs
-// Longest Abcederian word
-// For given list of words,Find the longest abcedrian word and returns it
-// For Example,in word "Aegilops",Letters are arranged in alphabetical order so, it is abcederaian
-// The word Aim is also arranged in alphabetical order but it is smaller in length,so it returns Aegilops as LongestAbcederian
+// Longest Abecederian word
+// For given list of words,Find the longest abecedrian word and returns it
+// For Example,in word "Aegilops",Letters are arranged in alphabetical order so, it is abecederaian
+// The word Aim is also arranged in alphabetical order but it is smaller in length,so it returns Aegilops as LongestAbecederian
 // ---------------------------------------------------------------------------------------------------------------------------
 using System;
 using System.Text.RegularExpressions;
 namespace Abcederain {
    #region Program-------------------------------------
-   /// <summary>Longest abcederian word</summary>
+   /// <summary>Longest abecederian word</summary>
    class Program {
       #region Methods------------------------------------------
-      /// <summary>Method to check whether input has any abcederian word, if it has returns the longest word</summary>
+      /// <summary>Method to check whether input has any abecederian word, if it has returns the longest word</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
          string[] words = { "Aegilops", "Aim", "3Bill", "Lilly", };
-         string longestAbecedarianWord = FindLongestAbecedarian (words);
-         Console.WriteLine (string.IsNullOrEmpty (longestAbecedarianWord) ? "No abecedarian word found." : 
-            $"The longest abecedarian word is: {longestAbecedarianWord}");
+         string longAbecedarian = FindLongestAbecedarian (words);
+         Console.WriteLine (string.IsNullOrEmpty (longAbecedarian) ? "No abecedarian word found." : 
+            $"The longest abecedarian word is: {longAbecedarian}");
          Console.ReadKey ();
       }
       /// <summary>Method to check whether it has only alphabetical characters using regular expression</summary>
