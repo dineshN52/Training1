@@ -5,9 +5,9 @@
 // Program.cs
 // Armstrong number
 // Ask the user to give a number and check whether given number is armstrong or not
-// For example, The given number 3 7 1, produced output is 3 7 1 and 3 7 1 is an armstrong number
+// For example, the given number 3 7 1, produced output is 3 7 1 and 3 7 1 is an armstrong number
 // Ask the user to give a number and produce the nth armstrong number of the given number
-// For example, The given number is 12, Produced output: 12th armstrong number is 371
+// For example, the given number is 12, produced output: 12th armstrong number is 371
 // ----------------------------------------------------------------------------------------------
 namespace Armstrong {
    #region class Program------------------------------
@@ -17,54 +17,52 @@ namespace Armstrong {
       /// <summary>Method to find armstrong number</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         uint num, n;
-         double result;
-         Console.Write ("Enter the number:");
+         Console.Write ("Enter the number: ");
          while (true) {
-            if (uint.TryParse (Console.ReadLine (), out num)) {
-               result = Isarmstrong ((int)num);
-               Console.WriteLine ($"Produced output: {result}");
+            if (uint.TryParse (Console.ReadLine (), out uint num)) {
+               Console.WriteLine ($"{num} is {(Isarmstrong (num) ? "an" : "not an")} armstrong number");
                break;
             } else
-               Console.WriteLine ("Invalid input.Enter a non-negative integer");
+               Console.WriteLine ("Invalid input. Enter a non-negative integer");
          }
-         Console.WriteLine ((result == (double)num) ? $"{num} is an armstrong number" : $"{num} is not an armstrong number");
-         Console.Write ("Enter the nth value: ");
+         Console.Write ("[Note: Maximum value of n is restricted to 25]\nEnter the nth value: ");
          while (true) {
-            if (uint.TryParse (Console.ReadLine (), out n)) {
+            if (uint.TryParse (Console.ReadLine (), out uint n)) {
                NthArmstrong (n);
                break;
             } else
-               Console.WriteLine ("Invalid input.Enter an integer value");
+               Console.WriteLine ("Invalid input. Enter an integer value");
          }
          Console.ReadKey ();
       }
-      /// <summary>
-      /// Method finds sum of exponentials of each digits of number with legth of number as power
-      /// (Mathematical logic behind Armstrong numbers)
-      /// </summary>
+
+      /// <summary>Method finds sum of exponentials of each digits of number with legth of number as power
+      /// (Mathematical logic behind Armstrong numbers)</summary>
       /// <param name="temp"></param>
       /// <param name="digits">Variable to store the number of digits in the number</param>
-      /// <param name="digit">Variable to store the current digit  </param>"
+      /// <param name="digit">Variable to store the current digit</param>"
       /// <returns>Return the produced output</returns>
-      static double Isarmstrong (int temp) {
-         double final = 0;
-         int digits = temp.ToString ().Length;
+      static bool Isarmstrong (uint input) {
+         double final = 0; uint temp = input;
+         int digits = input.ToString ().Length;
          while (temp > 0) {
-            int digit = temp % 10;
+            uint digit = temp % 10;
             final += Math.Pow (digit, digits);
             temp /= 10;
          }
-         return final;
+         if (final == input)
+            return true;
+         return false;
       }
+
       /// <summary>This method checks each number whether its armstrong or not and update the count with the respective nth value</summary>
       /// <param name="n"></param>
       /// <param name="number">A variable to keep track of the current number</param>
-      /// <param name="count">A variable to keep track of the count of Armstrong numbers</param>
+      /// <param name="count">A variable to keep track of the count of armstrong numbers</param>
       static void NthArmstrong (uint n) {
-         int number = 1, count = 0, result = 0;
+         uint number = 1, count = 0, result = 0;
          while (count < n) {
-            if (Isarmstrong (number) == number) {
+            if (Isarmstrong (number)) {
                count++;
                result = number;
             }
