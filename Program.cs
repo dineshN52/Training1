@@ -1,20 +1,20 @@
-﻿// ---------------------------------------------------------------------------------------------------------------------------------
+﻿// ----------------------------------------------------------------------------------------------------------------------------------
 // Training~A training program for new joinees at metamation,Batch-July 2023
 // Copyright(c) Metamation India
-// ---------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
 // Program.cs
 // Guessing of a number
-// Ask the user to guess a number between 1 to 10, 1 to 100 or 1 to 1000 based on selected modes like Easy,Medium,Hard respectively
-// For example, in Easy mode, machine will generate a random number between 1 to 10 and store it as secret
-// If user entered the same random number , output will be "you gueesed correctly in (n) tries".
-// If user entered a number < secret,it displays"your guess is too low & if number > secret,it displays"Your guess is too high".
-// ---------------------------------------------------------------------------------------------------------------------------------
+// Ask the user to guess a number between 1 to 10, 1 to 100 or 1 to 1000 based on selected modes like easy, medium, hard respectively
+// For example, in easy mode, machine will generate a random number between 1 to 10 and store it as secret
+// If user entered the same random number , output will be "you gueesed correctly in (n) tries", where n is number of tries
+// If user entered a number < secret, it displays"your guess is too low" and if number > secret, it displays"Your guess is too high"
+// ----------------------------------------------------------------------------------------------------------------------------------
 namespace NumberGuess {
    #region Class program-------------------------------------------
    /// <summary>Guess the number</summary>
    internal class Program {
       #region Methods-------------------------------------------------------
-      /// <summary>This function asks the user to selct mode and enter the guessed number according to mode</summary>
+      /// <summary>This method asks the user to select mode and enter the guessed number according to mode</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
          Console.Write ("Enter the mode: (E)asy, (M)edium, (H)ard :");
@@ -58,7 +58,7 @@ namespace NumberGuess {
          }
       }
 
-      /// <summary>Method to check entered number is equivalent,lower or higher to random number</summary>
+      /// <summary>Method to check entered number is equivalent to, lower or higher than random number</summary>
       /// <param name="secret"></param>
       /// <param name="guess"></param>
       /// <returns>It returns boolean answer for the guessing with secret number</returns>
