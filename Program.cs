@@ -26,8 +26,8 @@ namespace StringPermutation {
       /// <summary>Method passes the characters in the input words to swap function to produce permutation 
       ///  It also backtrack the swaps</summary>
       /// <param name="arr">Character array of input word</param>
-      /// <param name="sIndex"></param>
-      /// <param name="eIndex"></param>
+      /// <param name="sIndex">Start index of an array</param>
+      /// <param name="eIndex">End index of an array</param>
       static void Permute (char[] arr, int sIndex, int eIndex) {
          if (sIndex == eIndex)
             Console.WriteLine (new string (arr));
@@ -41,8 +41,8 @@ namespace StringPermutation {
       }
 
       /// <summary>Method swaps the charcters in the word</summary>
-      /// <param name="a"></param>
-      /// <param name="b"></param>
+      /// <param name="a">First variable</param>
+      /// <param name="b">Second variable</param>
       static void Swap (ref char a, ref char b) => (b, a) = (a, b); 
       #endregion 
    }
