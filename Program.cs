@@ -19,7 +19,7 @@ namespace NandR {
       /// (According to international numerical system)</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         Console.Write ("Enter the value:");
+         Console.Write ("Enter the value: ");
          while (true) {
             if (long.TryParse (Console.ReadLine (), out long n)) {
                Console.WriteLine ($"Original numerical value: {n}\nRoman numerals of the input\n{int_to_Roman (n)}");
@@ -43,7 +43,7 @@ namespace NandR {
          StringBuilder intToW = new ();
          int a = n.ToString ().Length;
          if (a >= 3)
-            ConvertNumberToWords (n, mult, ones, intToW);
+            ConvertNumberToWords (n, mult, intToW);
          else if (a == 2)
             HandleTensAndTeens (n, ones, teens, tens, intToW);
          else
@@ -55,39 +55,36 @@ namespace NandR {
       /// <param name="n">Input number</param>
       /// <param name="mult">Array which has words for higher numericals</param>
       /// <param name="intToW">Stringbuilder which holds words for number</param>
-      private static void ConvertNumberToWords (long n, string[] mult, string[] ones, StringBuilder intToW) {
+      private static void ConvertNumberToWords (long n, string[] mult, StringBuilder intToW) {
          switch (n) {
             case long when n >= 1000000000000:
                long trillions = n / 1000000000000;
-               intToW.Append (IntToWords (trillions)).Append (" ").Append (mult[4]).Append (" ");
+               intToW.Append ($"{IntToWords (trillions)} {mult[4]} ");
                n %= 1000000000000;
                break;
             case long when n >= 1000000000:
                long billions = n / 1000000000;
-               intToW.Append (IntToWords (billions)).Append (" ").Append (mult[3]).Append (" ");
+               intToW.Append ($"{IntToWords (billions)} {mult[3]} ");
                n %= 1000000000;
                break;
             case long when n >= 1000000:
                long millions = n / 1000000;
-               intToW.Append (IntToWords (millions)).Append (" ").Append (mult[2]).Append (" ");
+               intToW.Append ($"{IntToWords (millions)} {mult[2]} ");
                n %= 1000000;
                break;
             case long when n >= 1000:
                long thousands = n / 1000;
-               intToW.Append (IntToWords (thousands)).Append (" ").Append (mult[1]).Append (" ");
+               intToW.Append ($"{IntToWords (thousands)} {mult[1]} ");
                n %= 1000;
                break;
             default:
                long hundreds = n / 100;
                n %= 100;
-               if (n == 0)
-                  intToW.Append (ones[hundreds - 1]).Append (" ").Append (mult[0]).Append (" ");
-               else
-                  intToW.Append (ones[hundreds - 1]).Append (" ").Append (mult[0]).Append (" and ");
+               intToW.Append (n == 0 ? $"{IntToWords (hundreds)} {mult[0]}" : $"{IntToWords (hundreds)} {mult[0]} and ");
                break;
          }
          if (n > 0)
-            intToW.Append (IntToWords (n)).Append (" ");
+            intToW.Append (IntToWords (n));
       }
 
       /// <summary>This method specifically handle numbers which have only two digits and convert into words</summary>
@@ -101,7 +98,7 @@ namespace NandR {
             int tensDigit = (int)n / 10, onesDigit = (int)n % 10;
             intToW.Append (tens[tensDigit - 1]);
             if (onesDigit > 0)
-               intToW.Append (" ").Append (ones[onesDigit - 1]);
+               intToW.Append ($" {ones[onesDigit - 1]}");
          } else if (n >= 10 && n < 20)
             intToW.Append (teens[n - 10]);
       }
@@ -113,7 +110,7 @@ namespace NandR {
          string[] roman_symbol = { "MMM", "MM", "M", "CM", "DCCC", "DCC", "DC", "D", "CD", "CCC", "CC", "C", "XC", "LXXX", "LXX", "LX",
             "L", "XL", "XXX", "XX", "X", "IX", "VIII", "VII", "VI", "V", "IV", "III", "II", "I" };
          int[] int_value = { 3000, 2000, 1000, 900, 800, 700, 600, 500, 400, 300, 200, 100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
-         var roman_numerals = new StringBuilder ();
+         StringBuilder roman_numerals = new ();
          var index_num = 0;
          while (n != 0) {
             if (n >= int_value[index_num]) {
