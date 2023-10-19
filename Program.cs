@@ -19,7 +19,7 @@ namespace Individualdigit {
          Console.Write ("Enter the number: ");
          while (true) {
             if (double.TryParse (Console.ReadLine (), out double number)) {
-               Individualdigits (number);
+               PrintDigits (number);
                break;
             } else
                Console.WriteLine ("Invalid input. Please enter a valid numerical value.");
@@ -30,15 +30,20 @@ namespace Individualdigit {
       /// <summary>Method converts input integer or decimal to string 
       /// and split the number into substrings of integral and factorial part</summary>
       /// <param name="number"></param>
-      static void Individualdigits (double number) {
+      static void PrintDigits (double number) {
          string[] parts = number.ToString ().Split ('.'); //split input into two substrings(Integral and factorial part)
          if (parts.Length == 1)
-            Console.Write ("Individual digits are: {0}", string.Join (' ', parts[0].ToCharArray ()));
+            Console.Write ("Individual digits are: {0}", JoinDigits (parts[0]));
          else {
-            Console.WriteLine ("Integral part digits are: {0}", string.Join (' ', parts[0].ToCharArray ()));
-            Console.WriteLine ("Factorial part digits are: {0}", string.Join (' ', parts[1].ToCharArray ()));
+            Console.WriteLine ("Integral part digits are: {0}", JoinDigits (parts[0]));
+            Console.WriteLine ("Factorial part digits are: {0}", JoinDigits (parts[1]));
          }
       }
+
+      /// <summary>Join each value in the array of individual digits into a single string</summary>
+      /// <param name="s">Array of Individual digits</param>
+      /// <returns>Return string of individual digits with a space between each digits</returns>
+      static string JoinDigits (string s) => string.Join (' ', s.ToCharArray ());
       #endregion 
    }
    #endregion 
