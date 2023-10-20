@@ -32,18 +32,18 @@ namespace Individualdigit {
       /// <param name="number"></param>
       static void PrintDigits (double number) {
          string[] parts = number.ToString ().Split ('.'); //split input into two substrings(Integral and factorial part)
-         if (parts.Length == 1)
-            Console.Write ("Individual digits are: {0}", JoinDigits (parts[0]));
-         else {
-            Console.WriteLine ("Integral part digits are: {0}", JoinDigits (parts[0]));
-            Console.WriteLine ("Factorial part digits are: {0}", JoinDigits (parts[1]));
+         if (parts.Length == 1) {
+            Console.Write ("Individual digits are: ");JoinDigits (parts[0]);
+         }else {
+            Console.Write ("Integral part digits are: "); JoinDigits (parts[0]);
+            Console.Write("\nFactorial part digits are: "); JoinDigits (parts[1]);
          }
       }
 
       /// <summary>Join each value in the array of individual digits into a single string</summary>
       /// <param name="s">Array of Individual digits</param>
       /// <returns>Return string of individual digits with a space between each digits</returns>
-      static string JoinDigits (string s) => string.Join (' ', s.ToCharArray ());
+      static void JoinDigits (string s) =>Console.Write (string.Join (' ', s.ToCharArray ()));
       #endregion 
    }
    #endregion 
