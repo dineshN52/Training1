@@ -15,45 +15,41 @@ namespace SwapIndices {
       /// <summary>Method gets the number & indices to be swapped from user and pass to swap function</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         Console.Write ("Enter an non single digit number: ");
+         Console.Write ("Enter a series of numbers with a space between them: ");
          while (true) {
-            string number = Console.ReadLine ();
-            int length = number.ToString ().Length;
-            if (int.TryParse (number, out int num) && length >= 2) {
-               List<int> arr = new List<int> ();
-               for (int i = 0; i < length; i++) {
-                  arr.Add (num % 10);
-                  num /= 10;
-               }
-               arr.Reverse ();
-               Console.WriteLine ("[Note:Indices should be value less than the length of number]");
-               while (true) {
-                  Console.Write ("Enter two indices separated by space: ");
-                  string input = Console.ReadLine ();
-                  string[] indices = input.Split (' ');
-                  if (indices.Length == 2 && uint.TryParse (indices[0], out uint a) &&
-                      uint.TryParse (indices[1], out uint b) && a < length && b < length) {
-                     Swap (ref arr, (int)a, (int)b);
-                     Console.Write ("Number with swapped indices: ");
-                     for (int i = 0; i < length; i++) {
-                        Console.Write ($"{arr[i]}");
-                     }
-                     Console.ReadKey ();
-                     break;
-                  } else
-                     Console.WriteLine ("Invalid input. Enter two valid indices separated by space.");
-               }
+            List<string> s = Console.ReadLine ().Split (' ').ToList ();
+            List<int> ints = s.Select (s => Int32.TryParse (s, out int n) ? n : (int?)null).Where (n => n.HasValue).Select (n => n.Value).ToList ();
+            bool isListEmpty = ints?.Any () != true;
+            Console.WriteLine ("Input number list: {0}", string.Join (' ', ints.ToArray ()));
+            if (!isListEmpty && ints.Count > 1) {
+               SwapHelp (ints);
                break;
             } else
-               Console.WriteLine ("\nEnter a valid non-single digit number");
+               Console.WriteLine ("All inputs are invlaid. Enter an integers with a space between them");
+         }
+         Console.ReadKey ();
+      }
+
+      /// <summary>Method accepts input number list,ask the user to give indices to be swapped and pass to swap function</summary>
+      /// <param name="series">Input number list</param>
+      static void SwapHelp (List<int> series) {
+         int n = series.Count;
+         Console.Write ("[Note: Index values should be less than length of list]\nEnter indices to be swapped separated by a space: ");
+         while (true) {
+            string[] s = Console.ReadLine ().Split (' ');
+            if (s.Length == 2 && uint.TryParse (s[0], out uint a) && uint.TryParse (s[1], out uint b) && a < n && b < n) {
+               List<int> result = Swap (series, (int)a, (int)b);
+               Console.WriteLine ("Output number list: {0}", string.Join (' ', result.ToArray ()));
+               break;
+            } else
+               Console.WriteLine ("Invalid input. Enter integer values less than list length");
          }
       }
-      /// <summary>It swaps the numbers at given indices with the help of tuple</summary>
-      /// <param name="arr">Input number as list of digits</param>
-      /// <param name="a">First index to be swapped</param>
-      /// <param name="b">Second index to be swapped</param>
-      /// <returns>Returns number with swapped digits</returns>
-      static List<int> Swap (ref List<int> arr, int a, int b) {
+
+      /// <summary>Method takes two inputs and swap the values</summary>
+      /// <param name="a">Input1</param>
+      /// <param name="b">Input2</param>
+      static List<int> Swap (List<int> arr, int a, int b) {
          (arr[b], arr[a]) = (arr[a], arr[b]);
          return arr;
       }
@@ -61,3 +57,6 @@ namespace SwapIndices {
    }
    #endregion
 }
+
+
+
