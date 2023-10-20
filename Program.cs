@@ -19,12 +19,12 @@ namespace Swapnum {
          while (true) {
             string[] s = Console.ReadLine ().Split (' ');
             if (s.Length == 2 && int.TryParse (s[0], out int a) && int.TryParse (s[1], out int b)) {
-               Console.WriteLine ($"Original values A={a} B={b}");
+               Console.Write ($"Original values A={a} B={b}");
                Swap (ref a, ref b);
-               Console.WriteLine ($"Swaped values A={a} B={b}");
+               Console.Write ($"\nSwaped values A={a} B={b}");
                break;
             } else
-               Console.WriteLine ("Invalid input. Enter integer values separated by a space");
+               Console.Write ("Invalid input. Enter integer values separated by a space");
          }
          Console.ReadKey ();
       }
