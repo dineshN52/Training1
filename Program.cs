@@ -64,8 +64,7 @@ namespace NumberGuess {
       /// <returns>It returns boolean answer for the guessing with secret number</returns>
       static EGuess Checkguess (int secret, int guess) {
          if (guess == secret) return EGuess.Exact;
-         if (guess < secret) return EGuess.Low;
-         return EGuess.High;
+         return (guess < secret) ? EGuess.Low : EGuess.High;
       }
       #endregion
    }
