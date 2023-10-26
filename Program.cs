@@ -18,28 +18,26 @@ namespace SwapIndices {
          Console.Write ("Enter a series of numbers with a space between them: ");
          while (true) {
             List<string> s = Console.ReadLine ().Split (' ').ToList ();
-            List<int> ints = s.Select (s => Int32.TryParse (s, out int n) ? n : (int?)null).Where (n => n.HasValue).Select (n => n.Value).ToList ();
-            bool isListEmpty = ints?.Any () != true;
-            Console.WriteLine ("Input number list: {0}", string.Join (' ', ints.ToArray ()));
-            if (!isListEmpty && ints.Count > 1) {
+            int[] ints = s.Select (s => Int32.TryParse (s, out int n) ? n : (int?)null).Where (n => n.HasValue).Select (n => n.Value).ToArray ();
+            Console.WriteLine ("Input number list: {0}", string.Join (' ', ints));
+            if (ints.Any () && ints.Length > 1) {
                SwapHelp (ints);
                break;
             } else
                Console.WriteLine ("All inputs are invlaid. Enter an integers with a space between them");
          }
-         Console.ReadKey ();
       }
 
       /// <summary>Method accepts input number list,ask the user to give indices to be swapped and pass to swap function</summary>
       /// <param name="series">Input number list</param>
-      static void SwapHelp (List<int> series) {
-         int n = series.Count;
+      static void SwapHelp (int[] series) {
+         int n = series.Length;
          Console.Write ("[Note: Index values should be less than length of list]\nEnter indices to be swapped separated by a space: ");
          while (true) {
             string[] s = Console.ReadLine ().Split (' ');
             if (s.Length == 2 && uint.TryParse (s[0], out uint a) && uint.TryParse (s[1], out uint b) && a < n && b < n) {
-               List<int> result = Swap (series, (int)a, (int)b);
-               Console.WriteLine ("Output number list: {0}", string.Join (' ', result.ToArray ()));
+               Swap (ref series, (int)a, (int)b);
+               Console.WriteLine ("Output number list: {0}", string.Join (' ', series));
                break;
             } else
                Console.WriteLine ("Invalid input. Enter integer values less than list length");
@@ -49,10 +47,7 @@ namespace SwapIndices {
       /// <summary>Method takes two inputs and swap the values</summary>
       /// <param name="a">Input1</param>
       /// <param name="b">Input2</param>
-      static List<int> Swap (List<int> arr, int a, int b) {
-         (arr[b], arr[a]) = (arr[a], arr[b]);
-         return arr;
-      }
+      static void Swap (ref int[] arr, int a, int b) => (arr[b], arr[a]) = (arr[a], arr[b]);
       #endregion
    }
    #endregion
