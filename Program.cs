@@ -24,7 +24,6 @@ namespace Individualdigit {
             } else
                Console.WriteLine ("Invalid input. Please enter a valid numerical value.");
          }
-         Console.ReadKey ();
       }
 
       /// <summary>Method converts input integer or decimal to string 
@@ -32,18 +31,15 @@ namespace Individualdigit {
       /// <param name="number"></param>
       static void PrintDigits (double number) {
          string[] parts = number.ToString ().Split ('.'); //split input into two substrings(Integral and factorial part)
-         if (parts.Length == 1) {
-            Console.Write ("Individual digits are: ");JoinDigits (parts[0]);
-         }else {
-            Console.Write ("Integral part digits are: "); JoinDigits (parts[0]);
-            Console.Write("\nFactorial part digits are: "); JoinDigits (parts[1]);
-         }
+         JoinDigits (parts[0], (parts.Length == 1) ? "Individual" : "Integral");
+         if (parts.Length > 1)
+            JoinDigits (parts[1], "Factorial");
       }
 
       /// <summary>Join each value in the array of individual digits into a single string</summary>
       /// <param name="s">Array of Individual digits</param>
       /// <returns>Return string of individual digits with a space between each digits</returns>
-      static void JoinDigits (string s) =>Console.Write (string.Join (' ', s.ToCharArray ()));
+      static void JoinDigits (string s, string prefix) => Console.Write ($"\n{prefix} digits are: {string.Join (' ', s.ToCharArray ())}");
       #endregion 
    }
    #endregion 
