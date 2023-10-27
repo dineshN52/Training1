@@ -17,21 +17,17 @@ namespace Armstrong {
       /// <summary>Method to find armstrong number</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         Console.Write ("Enter the number: ");
-         while (true) {
-            if (uint.TryParse (Console.ReadLine (), out uint num)) {
-               Console.WriteLine ($"{num} is {(Isarmstrong (num) ? "an" : "not an")} armstrong number");
-               break;
-            } else
-               Console.WriteLine ("Invalid input. Enter a non-negative integer");
-         }
-         Console.Write ("[Note: Maximum value of n is restricted to 25]\nEnter the nth value: ");
-         while (true) {
-            if (uint.TryParse (Console.ReadLine (), out uint n)) {
-               NthArmstrong (n);
-               break;
-            } else
-               Console.WriteLine ("Invalid input. Enter an integer value");
+         if (args.Length != 0)
+            NthArmstrong (uint.Parse (args[0]));
+         else {
+            Console.Write ("Enter the number: ");
+            while (true) {
+               if (uint.TryParse (Console.ReadLine (), out uint num)) {
+                  Console.WriteLine ($"{num} is {(Isarmstrong (num) ? "an" : "not an")} armstrong number");
+                  break;
+               } else
+                  Console.WriteLine ("Invalid input. Enter a non-negative integer");
+            }
          }
          Console.ReadKey ();
       }
