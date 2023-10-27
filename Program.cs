@@ -22,8 +22,8 @@ namespace NandR {
          Console.Write ("Enter the value: ");
          while (true) {
             if (long.TryParse (Console.ReadLine (), out long n)) {
-               Console.WriteLine ($"Original numerical value: {n}\nRoman numerals of the input\n{int_to_Roman (n)}");
-               Console.WriteLine ($"Input number into words: {IntToWords (n)}");
+               Console.WriteLine ($"Original numerical value: {n}\nRoman numerals of the input\n{InttoRoman (n)}");
+               Console.WriteLine ($"Input number into words: {ChangeCapital (IntToWords (n))}");
                break;
             } else
                Console.WriteLine ("Invalid input. Please enter an numerical value.");
@@ -36,9 +36,9 @@ namespace NandR {
       /// <param name="n">Input number</param>
       /// <returns>It returns the string of words build by the function equivalent to the number</returns>
       public static string IntToWords (long n) {
-         string[] ones = new string[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
-         string[] teens = new string[] { "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
-         string[] tens = new string[] { "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+         string[] ones = new string[] { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+         string[] teens = new string[] { "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+         string[] tens = new string[] { "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
          string[] mult = new string[] { "hundred", "thousand", "million", "billion", "trillion" };
          StringBuilder intToW = new ();
          int a = n.ToString ().Length;
@@ -93,7 +93,7 @@ namespace NandR {
       /// <param name="teens">Array which has words for teen numbers</param>
       /// <param name="tens">Array which has words for tens digit</param>
       /// <param name="intToW">string builder which holds words for number</param>
-      private static void HandleTensAndTeens (long n, string[] ones, string[] teens, string[] tens, StringBuilder intToW) {
+      static void HandleTensAndTeens (long n, string[] ones, string[] teens, string[] tens, StringBuilder intToW) {
          if (n >= 20) {
             int tensDigit = (int)n / 10, onesDigit = (int)n % 10;
             intToW.Append (tens[tensDigit - 1]);
@@ -103,10 +103,19 @@ namespace NandR {
             intToW.Append (teens[n - 10]);
       }
 
+      /// <summary>Method gets a string and change the first character of string to upper</summary>
+      /// <param name="s">String in lowercase</param>
+      /// <returns>String with first letter alone as upper</returns>
+      static string ChangeCapital (string s) {
+         char[] letters = s.ToCharArray ();
+         letters[0] = char.ToUpper (letters[0]);
+         return new string (letters);
+      }
+
       /// <summary>Method converts the input number into equivalent roman numerals with the help of array of roman symbols given</summary>
       /// <param name="n">Input number</param>
       /// <returns>Returns the roman numeral of a number</returns>
-      public static string int_to_Roman (long n) {
+      public static string InttoRoman (long n) {
          string[] roman_symbol = { "MMM", "MM", "M", "CM", "DCCC", "DCC", "DC", "D", "CD", "CCC", "CC", "C", "XC", "LXXX", "LXX", "LX",
             "L", "XL", "XXX", "XX", "X", "IX", "VIII", "VII", "VI", "V", "IV", "III", "II", "I" };
          int[] int_value = { 3000, 2000, 1000, 900, 800, 700, 600, 500, 400, 300, 200, 100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
