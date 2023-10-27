@@ -26,6 +26,7 @@ namespace SwapIndices {
             } else
                Console.WriteLine ("All inputs are invlaid. Enter an integers with a space between them");
          }
+         Console.ReadKey ();
       }
 
       /// <summary>Method accepts input number list,ask the user to give indices to be swapped and pass to swap function</summary>
@@ -36,7 +37,7 @@ namespace SwapIndices {
          while (true) {
             string[] s = Console.ReadLine ().Split (' ');
             if (s.Length == 2 && uint.TryParse (s[0], out uint a) && uint.TryParse (s[1], out uint b) && a < n && b < n) {
-               Swap (ref series, (int)a, (int)b);
+               Swap (series, (int)a, (int)b);
                Console.WriteLine ("Output number list: {0}", string.Join (' ', series));
                break;
             } else
@@ -47,7 +48,7 @@ namespace SwapIndices {
       /// <summary>Method takes two inputs and swap the values</summary>
       /// <param name="a">Input1</param>
       /// <param name="b">Input2</param>
-      static void Swap (ref int[] arr, int a, int b) => (arr[b], arr[a]) = (arr[a], arr[b]);
+      static void Swap (int[] arr, int a, int b) => (arr[b], arr[a]) = (arr[a], arr[b]);
       #endregion
    }
    #endregion
