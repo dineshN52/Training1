@@ -11,81 +11,69 @@
 // ------------------------------------------------------------------------------------------------------------------------------------------
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 namespace SortArray {
    #region Class Program-----------------------
    /// <summary>Sort and swap special character</summary>
    internal class Program {
       #region Methods--------------------------------------
-      /// <summary>Method gets input from user like characte array,special character to be swapped and order of sequence
+      /// <summary>Method gets input from user like character array, special character to be swapped and order of sequence</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         Console.WriteLine ("Enter the array values, special character, sort order" +
-             "\nEnter only alpahabets as array values and special character, with a space between array,special character and sort order");
+         Console.WriteLine ("Enter an array of alphabets, alphabetical character to be swapped, sort order with a space between all."
+             + "\nMention sort order, only if descending (default case: ascending)");
          while (true) {
-            string s = Console.ReadLine ().ToLower ();
-            if (IsValid (s)) {
-               string[] Inputs = s.Split (' ');
+            Console.Write ("Input: ");
+            string[] inputs = Console.ReadLine ().ToLower ().Split (' ');
+            if (IsValid (inputs)) {
                int count = 0;
-               char[] values = Inputs[0].ToCharArray ();
-               char S = char.Parse (Inputs[1]);
-               List<char> result = Swap (S, values, ref count, Inputs.Length == 3 ? Inputs[2] : "ascending");
-               PrintList (result, S, count);
+               char[] values = inputs[0].ToCharArray ();
+               char specialchar = char.Parse (inputs[1]);
+               SwapandSort (specialchar, values, count, inputs.Length == 3 ? inputs[2] : "");
                break;
             } else
-               Console.WriteLine ("Enter valid input.Input should not be empty and a numerical character");
+               Console.WriteLine ("Invalid input. Enter input by following above criteria");
          }
       }
 
       /// <summary>Method to check whether input string only contains alphabets</summary>
-      /// <param name="s">Input string</param>
-      /// <returns>Returns the boolean value ehther given input is valid or not</returns>
-      static bool IsValid (string input) {
-         char[] letters = input.ToCharArray ();
-         var alpha = letters.Any (char.IsLetter);
-         string[] s = input.Split (' ');
-         if (alpha && s.Length >= 2 && (s.Length == 2 || (s.Length == 3 &&
-             (s[1].Length == 1 && (s[2] == "ascending" || s[2] == "descending")))))
-            return true;
+      /// <param name="s">Input string array</param>
+      /// <returns>Returns the boolean value based on given input is valid or not, as true(valid) or false(invalid)</returns>
+      static bool IsValid (string[] s) {
+         if (s.Length >= 2 && Regex.IsMatch (s[0], @"^[a-zA-Z]+$") && Regex.IsMatch (s[1], @"^[a-zA-Z]+$") && s[1].Length == 1) {
+            if (s.Length == 2 || (s.Length == 3 && (s[2] == "" || s[2] == "descending")))
+               return true;
+         }
          return false;
       }
 
-      /// <summary>Method which helps in swapping the special charcter in the list</summary>
-      /// <param name="a">Special character to be swapped</param>
+      /// <summary>Method which helps in swapping the special character in the list and sort it based on input order</summary>
+      /// <param name="specialchar">Special character to be swapped</param>
       /// <param name="b">Input array of characters</param>
-      /// <param name="c">coubt of repetition of special character</param>
-      /// <param name="d">List of characters without the special character</param>
-      static List<char> Swap (char a, char[] b, ref int c, string sortOrder) {
+      /// <param name="count">count of repetition of special character</param>
+      /// <param name="sortorder">Sorting order as ascending or descending</param>
+      static void SwapandSort (char specialchar, char[] b, int count, string sortorder) {
          int j = b.Length;
          List<char> d = new ();
          for (int i = 0; i < j; i++) {
-            if (b[i] == a) {
+            if (b[i] == specialchar) {
                SwapHelp (ref b[i], ref b[j - 1]);
-               c++; j--;
+               count++; j--;
             }
          }
-         d = b.SkipLast (c).ToList ();
-         if (sortOrder == "descending")
-            d = d.OrderByDescending (a => a).ToList ();
-         else
-            d = d.OrderBy (a => a).ToList ();
-         return d;
+         d = sortorder == "descending" ? b.SkipLast (count).OrderByDescending (a => a).ToList () :
+             b.SkipLast (count).OrderBy (a => a).ToList ();
+         for (int i = 0; i < count; i++)
+            d.Add (specialchar);
+         Console.Write ("Swapped and sorted string: ");
+         foreach (char letter in d)
+            Console.Write (letter);
       }
 
       /// <summary>Method helps in swapping of characters</summary>
       /// <param name="a">Input character1</param>
       /// <param name="b">Input character2</param>
       static void SwapHelp (ref char a, ref char b) => (b, a) = (a, b);
-
-      /// <summary>Method to add special charcter at last and print the list</summary>
-      /// <param name="a">List with characters are arranged in given order</param>
-      /// <param name="S">Special character</param>
-      /// <param name="n">Number of repetitionsof special character</param>
-      static void PrintList (List<char> a, char S, int n) {
-         for (int i = 0; i < n; i++)
-            a.Add (S);
-         foreach (char c in a)
-            Console.Write (c);
-      }
       #endregion
    }
    #endregion
