@@ -17,19 +17,21 @@ namespace Armstrong {
       /// <summary>Method to find armstrong number</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         if (args.Length != 0)
-            NthArmstrong (uint.Parse (args[0]));
-         else {
+         if (args.Length != 0) {
+            if (uint.TryParse (args[0], out uint n) && n <= 25)
+               NthArmstrong (n);
+            else
+               Console.WriteLine ("Argument is out of range. Enter value between 1 to 25.");
+         } else {
             Console.Write ("Enter the number: ");
             while (true) {
                if (uint.TryParse (Console.ReadLine (), out uint num)) {
-                  Console.WriteLine ($"{num} is {(Isarmstrong (num) ? "an" : "not an")} armstrong number");
+                  Console.WriteLine ($"{num} is {(IsArmstrong (num) ? "an" : "not an")} armstrong number");
                   break;
                } else
                   Console.WriteLine ("Invalid input. Enter a non-negative integer");
             }
          }
-         Console.ReadKey ();
       }
 
       /// <summary>Method finds sum of exponentials of each digits of number with legth of number as power
@@ -38,7 +40,7 @@ namespace Armstrong {
       /// <param name="digits">Variable to store the number of digits in the number</param>
       /// <param name="digit">Variable to store the current digit</param>"
       /// <returns>Return the produced output</returns>
-      static bool Isarmstrong (uint input) {
+      static bool IsArmstrong (uint input) {
          double final = 0; uint temp = input;
          int digits = input.ToString ().Length;
          while (temp > 0) {
@@ -58,7 +60,7 @@ namespace Armstrong {
       static void NthArmstrong (uint n) {
          uint number = 1, count = 0, result = 0;
          while (count < n) {
-            if (Isarmstrong (number)) {
+            if (IsArmstrong (number)) {
                count++;
                result = number;
             }
