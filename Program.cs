@@ -21,15 +21,12 @@ namespace SortArray {
       /// <param name="args"></param>
       static void Main (string[] args) {
          Console.WriteLine ("Enter an array of alphabets, alphabetical character to be swapped, sort order with a space between all."
-             + "\nMention sort order, only if descending (default case: ascending)");
+             + "\nMention sort order, only if descending, as '1' or keep empty if ascending(default case)");
          while (true) {
             Console.Write ("Input: ");
-            string[] inputs = Console.ReadLine ().ToLower ().Split (' ');
-            if (IsValid (inputs)) {
-               int count = 0;
-               char[] values = inputs[0].ToCharArray ();
-               char specialchar = char.Parse (inputs[1]);
-               SwapandSort (specialchar, values, count, inputs.Length == 3 ? inputs[2] : "");
+            var input = Console.ReadLine ()?.ToLower ().Split (' ');
+            if (input != null && IsValid (input)) {
+               SwapandSort (input);
                break;
             } else
                Console.WriteLine ("Invalid input. Enter input by following above criteria");
@@ -40,8 +37,9 @@ namespace SortArray {
       /// <param name="s">Input string array</param>
       /// <returns>Returns the boolean value based on given input is valid or not, as true(valid) or false(invalid)</returns>
       static bool IsValid (string[] s) {
-         if (s.Length >= 2 && Regex.IsMatch (s[0], @"^[a-zA-Z]+$") && Regex.IsMatch (s[1], @"^[a-zA-Z]+$") && s[1].Length == 1) {
-            if (s.Length == 2 || (s.Length == 3 && (s[2] == "" || s[2] == "descending")))
+         var reg = new Regex (@"^[a-zA-Z]+$");
+         if (s.Length >= 2 && reg.IsMatch (s[0]) && reg.IsMatch (s[1]) && s[1].Length == 1) {
+            if (s.Length == 2 || (s.Length == 3 && s[2] == "1"))
                return true;
          }
          return false;
@@ -52,22 +50,22 @@ namespace SortArray {
       /// <param name="b">Input array of characters</param>
       /// <param name="count">count of repetition of special character</param>
       /// <param name="sortorder">Sorting order as ascending or descending</param>
-      static void SwapandSort (char specialchar, char[] b, int count, string sortorder) {
-         int j = b.Length;
-         List<char> d = new ();
-         for (int i = 0; i < j; i++) {
-            if (b[i] == specialchar) {
-               SwapHelp (ref b[i], ref b[j - 1]);
-               count++; j--;
+      static void SwapandSort (string[] input) {
+         char[] chars = input[0].ToCharArray ();
+         char specialchar = char.Parse (input[1]);
+         int count = 0, arrLength = chars.Length;
+         bool sortOrder = input.Length == 3;
+         for (int i = 0; i < arrLength; i++) {
+            if (chars[i] == specialchar) {
+               SwapHelp (ref chars[i], ref chars[arrLength - 1]);
+               count++; arrLength--;
             }
          }
-         d = sortorder == "descending" ? b.SkipLast (count).OrderByDescending (a => a).ToList () :
-             b.SkipLast (count).OrderBy (a => a).ToList ();
-         for (int i = 0; i < count; i++)
-            d.Add (specialchar);
-         Console.Write ("Swapped and sorted string: ");
-         foreach (char letter in d)
-            Console.Write (letter);
+         chars = (sortOrder ? chars.SkipLast (count).OrderByDescending (a => a).ToArray () :
+                  chars.SkipLast (count).OrderBy (a => a).ToArray ());
+         string s = new (chars);
+         s = s.PadRight (count + s.Length, specialchar);
+         Console.Write ($"Swapped and sorted string: {s}");
       }
 
       /// <summary>Method helps in swapping of characters</summary>
