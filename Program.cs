@@ -39,7 +39,7 @@ namespace SortArray {
       static bool IsValid (string[] s) {
          var reg = new Regex (@"^[a-zA-Z]+$");
          if (s.Length >= 2 && reg.IsMatch (s[0]) && reg.IsMatch (s[1]) && s[1].Length == 1) {
-            if (s.Length == 2 || (s.Length == 3 && s[2] == "1"))
+            if (s.Length == 2 || (s.Length == 3 && (s[2] == "1" || s[2] == "")))
                return true;
          }
          return false;
@@ -54,7 +54,7 @@ namespace SortArray {
          char[] chars = input[0].ToCharArray ();
          char specialchar = char.Parse (input[1]);
          int count = 0, arrLength = chars.Length;
-         bool sortOrder = input.Length == 3;
+         bool sortOrder = (input.Length == 3 && input[2] == "1");
          for (int i = 0; i < arrLength; i++) {
             if (chars[i] == specialchar) {
                SwapHelp (ref chars[i], ref chars[arrLength - 1]);
