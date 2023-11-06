@@ -24,8 +24,7 @@ namespace Spellingbee {
          while (true) {
             string? input = Console.ReadLine ()?.ToUpper ();
             if (input != null && Regex.IsMatch (input, @"^[a-zA-Z]+$")) {
-               char[] letters = input.ToCharArray ();
-               CheckWords (letters);
+               Spellbee (input.ToCharArray ());
                break;
             } else
                Console.WriteLine ("Invalid input. Enter only alphabets");
@@ -34,14 +33,14 @@ namespace Spellingbee {
 
       /// <summary>Method which loads the dictionary and check words which met all the criteria of spelling bee and print along with scores</summary>
       /// <param name="letters">Input character array</param>
-      static void CheckWords (char[] letters) {
+      static void Spellbee (char[] letters) {
          StreamReader sr = new ("C:\\dinesh.n\\words.txt");
          string? line = sr.ReadLine ();
          int score = 0, total = 0;
          List<(int, string)> finalList = new ();
          while (line != null) {
-            if (line.Contains (letters[0]) && line.All (x => letters.Contains (x)) && line.Length >= 4) {
-               score = line.Length > 4 ? (CheckHigherscore (line, letters) ? 15 : line.Length) : 1;
+            if (line.Length >= 4 && line.Contains (letters[0]) && line.All (x => letters.Contains (x))) {
+               score = line.Length > 4 ? (Ispangram (line, letters) ? 15 : line.Length) : 1;
                finalList.Add ((score, line));
                total += score;
             }
@@ -49,20 +48,15 @@ namespace Spellingbee {
          }
          finalList = finalList.OrderByDescending (x => x).ToList ();
          Console.WriteLine (string.Join ("\n", finalList));
-         Console.WriteLine ($"{total} Total");
+         Console.WriteLine ($"\n{total} Total");
          sr.Close ();
       }
 
-      /// <summary>method to check if word has all charcaters of series and allot High score</summary>
+      /// <summary>method to check if word has all charcaters of series</summary>
       /// <param name="input">Input word</param>
       /// <param name="validChars">Input charcater array</param>
       /// <returns>Return bool value for the condition, True if word has all character, else false</returns>
-      static bool CheckHigherscore (string input, char[] validChars) {
-         string d = new (input.Distinct ().ToArray ());
-         if (d.Length == validChars.Length)
-            return true;
-         return false;
-      }
+      static bool Ispangram (string input, char[] validChars) => input.Distinct ().ToArray ().Length == validChars.Length;
       #endregion
    }
    #endregion
