@@ -41,13 +41,7 @@ namespace Spellingbee {
          List<(int, string)> finalList = new ();
          while (line != null) {
             if (line.Contains (letters[0]) && line.All (x => letters.Contains (x)) && line.Length >= 4) {
-               if (line.Length > 4) {
-                  if (CheckHigherscore (line, letters))
-                     score = 15;
-                  else
-                     score = line.Length;
-               } else
-                  score = 1;
+               score = line.Length > 4 ? (CheckHigherscore (line, letters) ? 15 : line.Length) : 1;
                finalList.Add ((score, line));
                total += score;
             }
