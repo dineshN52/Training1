@@ -44,7 +44,7 @@ namespace Guessnum {
          int[] result = new int[bitcount];
          int min = 0, max = 127;
          while (bitcount > 0) {
-            int machineGuess = (((min + max) + 1) / 2);
+            int machineGuess = (min + max + 1) / 2;
             Console.Write ($"\nMachine guess: {machineGuess}" +
                 "\nIs your number Lower than machine guess (Y)es or (N)o? ");
             while (true) {
@@ -99,8 +99,7 @@ namespace Guessnum {
                break;
             } else if (feed == ConsoleKey.N) {
                result[n - 1] = 1;
-               if (result[n - 1] == 1)
-                  b += (int)Math.Pow (2, c);
+               b += (int)Math.Pow (2, c);
                break;
             } else
                Console.Write ("\nInvalid input. Please use (Y)es, (N)o for the feedback: ");
