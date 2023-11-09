@@ -34,26 +34,19 @@ namespace Spellingbee {
       /// <summary>Method which loads the dictionary and check words which met all the criteria of spelling bee and print along with scores</summary>
       /// <param name="letters">Input character array</param>
       static void Spellbee (string letters) {
-         string[] lines = File.ReadAllLines ("C:\\dinesh.n\\words.txt");
-         int score = 0, total = 0;
-         List<(int, string)> finalList = new ();
-         foreach (string line in lines) {
-            if (line.Length >= 4 && line.Contains (letters[0]) && line.All (x => letters.Contains (x))) {
-               score = line.Length > 4 ? (Ispangram (line, letters) ? 15 : line.Length) : 1;
-               finalList.Add ((score, line));
-               total += score;
-            }
-         }
-         finalList = finalList.OrderByDescending (x => x).ToList ();
+         var finalList = File.ReadAllLines ("C:\\dinesh.n\\words.txt")
+             .Where (a => a.Length >= 4 && a.Contains (letters[0]) && a.All (letters.Contains))
+             .Select (a => (word: a, score: a.Length > 4 ? IsPangram (a, letters) ? 15 : a.Length : 1))
+             .OrderByDescending (a => a.score);
          Console.WriteLine (string.Join ("\n", finalList));
-         Console.WriteLine ($"\n{total} Total");
+         Console.WriteLine ($"\n{finalList.Select (a => a.score).Sum ()} Total");
       }
 
       /// <summary>method to check if word has all charcaters of series</summary>
       /// <param name="input">Input word</param>
       /// <param name="validChars">Input charcater array</param>
       /// <returns>Return bool value for the condition, True if word has all character, else false</returns>
-      static bool Ispangram (string input, string validChars) => input.Distinct ().ToArray ().Length == validChars.Length;
+      static bool IsPangram (string input, string validChars) => input.Distinct ().ToArray ().Length == validChars.Length;
       #endregion
    }
    #endregion
