@@ -74,37 +74,24 @@ namespace Guessnum {
          int[] result = new int[bitcount];
          int dividend = 2, remainder = 0, count = 0;
          while (bitcount > 0) {
-            result = LsHelp (dividend, ref remainder, result, bitcount, count);
+            Console.Write ($"\nIs the number divided by {dividend} the remainder {remainder}: (Y)es or (N)o: ");
+            while (true) {
+               var feed = Console.ReadKey ().Key;
+               if (feed == ConsoleKey.Y) {
+                  result[bitcount - 1] = 0;
+                  break;
+               } else if (feed == ConsoleKey.N) {
+                  result[bitcount - 1] = 1;
+                  remainder += (int)Math.Pow (2, count);
+                  break;
+               } else
+                  Console.Write ("\nInvalid input. Please use (Y)es, (N)o for the feedback: ");
+            }
             bitcount--;
             dividend *= 2;
             count++;
          }
-         int answer = Convert.ToInt32 (string.Join ("", result), 2);
-         Console.WriteLine ($"\nThe assumed number by the user is {answer}");
-      }
-
-      /// <summary>Method which helps to find number from LSB</summary>
-      /// <param name="a">Dividend for question at each bit place</param>
-      /// <param name="b">Remainder for the question at each bit place</param>
-      /// <param name="result">Array to holds the binary value of number</param>
-      /// <param name="n">Bitcount</param>
-      /// <param name="c">Count of questions</param>
-      /// <returns>Final array which holds all the binary value of the number</returns>
-      static int[] LsHelp (int a, ref int b, int[] result, int n, int c) {
-         Console.Write ($"\nIs the number divided by {a} the remainder {b}: (Y)es or (N)o: ");
-         while (true) {
-            var feed = Console.ReadKey ().Key;
-            if (feed == ConsoleKey.Y) {
-               result[n - 1] = 0;
-               break;
-            } else if (feed == ConsoleKey.N) {
-               result[n - 1] = 1;
-               b += (int)Math.Pow (2, c);
-               break;
-            } else
-               Console.Write ("\nInvalid input. Please use (Y)es, (N)o for the feedback: ");
-         }
-         return result;
+         Console.WriteLine ($"\nThe assumed number by the user is {Convert.ToInt32 (string.Join ("", result), 2)}");
       }
       #endregion
    }
