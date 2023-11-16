@@ -31,7 +31,7 @@ namespace Spellingbee {
       static Dictionary<char, int> Findcharfrequency () {
          var lines = File.ReadAllLines ("C:\\dinesh.n\\words.txt");
          Dictionary<char, int> table = Enumerable.Range ('A', 26).ToDictionary (c => (char)c, c => 0);
-         foreach (var c in from words in lines from char c in words where table.ContainsKey (c) select c)
+         foreach (var c in from words in lines from char c in words where char.IsLetter (c) select c)
             table[c] += 1;
          return table;
       }
