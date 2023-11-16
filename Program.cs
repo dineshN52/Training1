@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+﻿// ---------------------------------------------------------------------------------------------------------------------------------------------------
 // Training~A training program for new joinees at metamation,Batch-July 2023
 // Copyright(c) Metamation India
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -8,7 +8,7 @@
 // Findcharfrequency method find the repetition of each alphabet in the whole string and create a dictionary 
 // Dictionary will hold each alpahabetical character with the respective count as key, value pair in it
 // Dictionary is sorted with respect to value in descending order and first seven characters are displayed as the seed characters for spelling bee game
-// ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------------------
 using System.Data;
 using System.Linq;
 namespace Spellingbee {
