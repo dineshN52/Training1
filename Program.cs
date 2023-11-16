@@ -6,9 +6,7 @@ namespace Training {
       #region method---------------
       /// <summary>Main method where the class is implemented</summary>
       /// <param name="args"></param>
-      public static void Main () {
-
-      }
+      public static void Main () {}
       #endregion
    }
    #endregion
@@ -16,24 +14,24 @@ namespace Training {
    #region class MyList----------------
    public class MyList<T> {
       #region Private Data------
-      int mcount;
-      int mcapacity;
+      int mCount;
+      int mCapacity;
       T[] mylist;
       #endregion ---------------
 
       #region Constructor---------
       public MyList () {
-         mcount = 0;
-         mcapacity = 4;
-         mylist = new T[mcapacity];
+         mCount = 0;
+         mCapacity = 4;
+         mylist = new T[mCapacity];
       }
       #endregion
 
       #region Properties-------------------
       /// <summary>Method gives current number of elements in the list</summary>
-      public int Count => mcount;
+      public int Count => mCount;
       /// <summary>Method gives maximum limit of elements in the list</summary>
-      public int Capacity => mcapacity;
+      public int Capacity => mCapacity;
       /// <summary>Method used to get or set a value of element at particular index of list</summary>
       /// <param name="index">Index to be get or set</param>
       /// <returns>Returns the value at index</returns>
@@ -53,9 +51,9 @@ namespace Training {
       /// <summary>Method add the argument at end of list</summary>
       /// <param name="item">Element to be added</param>
       public void Add (T item) {
-         if (mcount == mcapacity)
+         if (mCount == mCapacity)
             ResizeArray ();
-         mylist[mcount++] = item;
+         mylist[mCount++] = item;
       }
 
       /// <summary>Check whether element is present in the list and remove if it is there</summary>
@@ -73,7 +71,7 @@ namespace Training {
       /// <summary>Method used to clear all the elements in the list</summary>
       public void Clear () {
          Array.Clear (mylist);
-         mcount = 0;
+         mCount = 0;
       }
 
       /// <summary>Method insert the given element at the particular index given</summary>
@@ -82,8 +80,8 @@ namespace Training {
       /// <exception cref="ArgumentOutOfRangeException">If the index passed is out of range, it throws argument out of range exception</exception>
       public void Insert (int index, T item) {
          if (Argumentexception (index)) {
-            mcount++;
-            for (int i = mcount; i >= index; i--)
+            mCount++;
+            for (int i = mCount; i >=index; i--)
                mylist[i] = mylist[i - 1];
             mylist[index] = item;
          }
@@ -93,16 +91,16 @@ namespace Training {
       /// <param name="index">Index in which elemnt to be removed</param>
       public void RemoveAt (int index) {
          if (Argumentexception (index)) {
-            for (int i = index; i < mcount - 1; i++)
+            for (int i = index; i < mCount - 1; i++)
                mylist[i] = mylist[i + 1];
-            mcount--;
+            mCount--;
          }
       }
 
       /// <summary>Method will double the size of list if the count exceeds the capacity</summary>
       private void ResizeArray () {
-         mcapacity *= 2;
-         Array.Resize (ref mylist, mcapacity);
+         mCapacity *= 2;
+         Array.Resize (ref mylist, mCapacity);
       }
 
       /// <summary>This method check whether given index is within the limit of list or exceeds it</summary>
@@ -111,7 +109,7 @@ namespace Training {
       /// <exception cref="IndexOutOfRangeException">If index is out of limit, throw index out of range exception</exception>
       public bool Indexexception (int index) {
          try {
-            if (index >= 0 && index < mcount)
+            if (index >= 0 && index < mCount)
                return true;
             else
                throw new IndexOutOfRangeException ("Index out of range");
@@ -127,7 +125,7 @@ namespace Training {
       /// <exception cref="ArgumentOutOfRangeException">If index is out of limit, throw argument out of range exception</exception>
       public bool Argumentexception (int index) {
          try {
-            if (index >= 0 && index < mcount)
+            if (index >= 0 && index < mCapacity)
                return true;
             else
                throw new ArgumentOutOfRangeException (nameof (index), "Argument is out of range");
