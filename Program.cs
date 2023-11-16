@@ -19,32 +19,20 @@ namespace Spellingbee {
       /// <summary>Method which read the dictionary of words,converts to single string and passes to Findcharfrequency method</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         string input = File.ReadAllText ("C:\\dinesh.n\\words.txt");
-         while (input != null) {
-            var seed = Findcharfrequency (input).OrderByDescending (x => x.Value).ToDictionary (x => x.Key, x => x.Value).Take (7);
-            Console.WriteLine ("Below were the list of first seven characters with higher appearances in the dictionary" +
-                "\nThis letters can be used as seed for spelling bee game");
-            Console.WriteLine ($"\n{String.Join ("\n", seed.Select (res => res.Key + "-" + res.Value))}");
-            break;
-         }
+         var seed = Findcharfrequency ().OrderByDescending (x => x.Value).ToDictionary (x => x.Key, x => x.Value).Take (7);
+         Console.WriteLine ("Below were the list of first seven characters with higher appearances in the dictionary" +
+             "\nThis letters can be used as seed for spelling bee game");
+         Console.WriteLine ($"\n{String.Join ("\n", seed.Select (res => res.Key + "-" + res.Value))}");
       }
 
       /// <summary>Method gets the input string and find frequency of each alphabetical character and creates a dictionary with character and count</summary>
       /// <param name="lines"></param>
       /// <returns>Returns dictionary of each character with their repetition count in words dictionary</returns>
-      static Dictionary<char, int> Findcharfrequency (string lines) {
-         lines = lines.Replace ("\r\n", "").Replace ("-", "");
-         char[] alphabets = Enumerable.Range ('A', 26).Select (i => (Char)i).ToArray ();
-         Dictionary<char, int> table = new ();
-         int count;
-         foreach (char c in alphabets) {
-            count = 0;
-            for (int i = 0; i < lines.Length; i++) {
-               if (lines[i] == c)
-                  count++;
-            }
-            table.Add (c, count);
-         }
+      static Dictionary<char, int> Findcharfrequency () {
+         var lines = File.ReadAllLines ("C:\\dinesh.n\\words.txt");
+         Dictionary<char, int> table = Enumerable.Range ('A', 26).ToDictionary (c => (char)c, c => 0);
+         foreach (var c in from words in lines from char c in words where table.ContainsKey (c) select c)
+            table[c] += 1;
          return table;
       }
       #endregion
