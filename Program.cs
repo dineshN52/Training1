@@ -46,7 +46,7 @@ namespace Spellingbee {
       /// <param name="input">Input word</param>
       /// <param name="validChars">Input charcater array</param>
       /// <returns>Return bool value for the condition, True if word has all character, else false</returns>
-      static bool IsPangram (string input, string validChars) => input.Distinct ().ToArray ().Length == validChars.Length;
+      static bool IsPangram (string input, string validChars) => validChars.All (c => input.Contains (c));
       #endregion
    }
    #endregion
