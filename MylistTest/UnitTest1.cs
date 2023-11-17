@@ -25,8 +25,19 @@ namespace MylistTest {
             list.Add (i);
             mlist.Add (i);
          }
-         list.Remove (18); mlist.Remove (18);
+         list.Remove (17); mlist.Remove (17);
          Assert.AreEqual (list.Count, mlist.Count);
+      }
+
+      [TestMethod]
+      public void Thistest () {
+         for (int i = 15; i < 18; i++) {
+            list.Add (i);
+            mlist.Add (i);
+         }
+         list[0] = 10; mlist[0] = 10;
+         Assert.AreEqual (list[0], mlist[0]);
+         Assert.ThrowsException<IndexOutOfRangeException> (() => mlist[5] = 12, "Index out of range");
       }
 
       [TestMethod]
@@ -35,8 +46,10 @@ namespace MylistTest {
             list.Add (i);
             mlist.Add (i);
          }
-         list.Insert (1, 5); mlist.Insert (1, 5);
-         Assert.AreEqual (list.Count, mlist.Count);
+         list.Insert (0, 5); mlist.Insert (0, 5);
+         Assert.AreEqual (list[0], mlist[0]);
+         Assert.ThrowsException<ArgumentOutOfRangeException> (() => list.Insert (6, 5), "Argument out of range");
+         Assert.ThrowsException<ArgumentOutOfRangeException> (() => mlist.Insert (6, 5), "Argument out of range");
       }
 
       [TestMethod]
@@ -47,6 +60,8 @@ namespace MylistTest {
          }
          list.RemoveAt (0); mlist.RemoveAt (0);
          Assert.AreEqual (list[0], mlist[0]);
+         Assert.ThrowsException<ArgumentOutOfRangeException> (() => list.RemoveAt (7), "Index out of range");
+         Assert.ThrowsException<ArgumentOutOfRangeException> (() => mlist.RemoveAt (7), "Index out of range");
       }
 
       [TestMethod]
