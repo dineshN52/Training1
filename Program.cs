@@ -92,7 +92,8 @@ namespace Training {
       /// <exception cref="ArgumentOutOfRangeException">If the index passed is out of range, it throws argument out of range exception</exception>
       public void Insert (int index, T item) {
          if (Argumentexception (index, mCount)) {
-            ResizeArray ();
+            if (mCount == mCapacity)
+               ResizeArray ();
             for (int i = mCount; i > index; i--)
                mylist[i] = mylist[i - 1];
             mylist[index] = item;
