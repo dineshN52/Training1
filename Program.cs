@@ -8,7 +8,7 @@
 // Create test method for all properties and methods
 // Custom stack method should also be able to throw exception whenever necesaary
 // Like Poping an element from the stack which is empty should produce Inavalidoperation Exception.
-// Similarly, methid should throw Invalidoperation Exception when try to peek() and element from a stack which is empty().
+// Similarly, method should throw Invalidoperation Exception when try to peek() and element from a stack which is empty().
 // -----------------------------------------------------------------------------------------------------------------------
 using System;
 namespace Training {
