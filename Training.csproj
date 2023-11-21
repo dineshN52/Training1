@@ -9,10 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="MylistTest\**" />
+    <Compile Remove="Queuetest\**" />
     <Compile Remove="StackTest\**" />
     <EmbeddedResource Remove="MylistTest\**" />
+    <EmbeddedResource Remove="Queuetest\**" />
     <EmbeddedResource Remove="StackTest\**" />
     <None Remove="MylistTest\**" />
+    <None Remove="Queuetest\**" />
     <None Remove="StackTest\**" />
   </ItemGroup>
 
