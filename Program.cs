@@ -22,19 +22,22 @@ namespace Training {
    }
    #endregion
 
-   #region class Tstack----------------
-   public class Tstack<T> {
+   #region class TStack----------------
+   /// <summary>Method to create a custom Stack</summary>
+   /// <typeparam name="T"></typeparam>
+   public class TStack<T> {
+
       #region Private Data------
       int mCount;
       int mCapacity;
-      T[] mTstack;
+      T[] mTStack;
       #endregion ---------------
 
       #region Constructor---------
-      public Tstack () {
+      public TStack () {
          mCount = 0;
          mCapacity = 4;
-         mTstack = new T[mCapacity];
+         mTStack = new T[mCapacity];
       }
       #endregion
 
@@ -61,14 +64,14 @@ namespace Training {
       public void Push (T a) {
          if (mCount == mCapacity)
             ResizeArray ();
-         mTstack[mCount++] = a;
+         mTStack[mCount++] = a;
       }
 
       /// <summary>Method used to remove last element of the stack and also to get the element</summary>
       /// <returns>Return the final element</returns>
       public T Pop () {
          if (mCount > 0)
-            return mTstack[--mCount];
+            return mTStack[--mCount];
          else
             throw new InvalidOperationException ("Stack is empty");
       }
@@ -78,15 +81,15 @@ namespace Training {
       /// <returns>Return the first element of stack</returns>
       public T Peek () {
          if (mCount > 0)
-            return mTstack[mCount - 1];
+            return mTStack[mCount - 1];
          else
             throw new InvalidOperationException ("Stack is empty");
       }
 
-      /// <summary>Method will double the size of list if the count exceeds the capacity</summary>
+      /// <summary>Method will double the size of stack if the count exceeds the capacity</summary>
       private void ResizeArray () {
          mCapacity *= 2;
-         Array.Resize (ref mTstack, mCapacity);
+         Array.Resize (ref mTStack, mCapacity);
       }
       #endregion
    }
