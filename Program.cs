@@ -1,4 +1,16 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------------------------------------------------------
+// Training~A training program for new joinees at metamation,Batch-July 2023
+// Copyright(c) Metamation India
+// -----------------------------------------------------------------------------------------------------------------------
+// Program.cs
+// Creating a custom Queue
+// Includes creation of all properties like count, capacity, IsEmpty and methods like Enqueue, Deque(), Peek().
+// Create test method for all properties and methods
+// Custom Queue method should also be able to throw exception whenever necesaary
+// Like Dequeue an element from the queue which is empty should produce Inavalidoperation Exception.
+// Similarly, method should throw Invalidoperation Exception when try to peek() and element from a queue which is empty().
+// -----------------------------------------------------------------------------------------------------------------------
+using System;
 namespace Training {
    #region class Program-----------
    class Program {
@@ -11,6 +23,8 @@ namespace Training {
    #endregion
 
    #region class Tqueue----------------
+   /// <summary>Method to create a Custom Queue class</summary>
+   /// <typeparam name="T"></typeparam>
    public class Tqueue<T> {
       public T a = default;
       #region Private Data------
@@ -46,7 +60,9 @@ namespace Training {
       }
       #endregion
 
-      #region Methods--------------------      
+      #region Methods--------------------
+      /// <summary>Method to enqueue a new element in the queue</summary>
+      /// <param name="a">New elemen to be added</param>
       public void Enqueue (T a) {
          if (mCount == Capacity)
             ResizeArray ();
@@ -55,6 +71,8 @@ namespace Training {
          mCount++;
       }
 
+      /// <summary>Method to Deque the element from the queue</summary>
+      /// <returns>Returns the last element in the queue</returns>
       public T Dequeue () {
          if (mCount > 0) {
             a = mTqueue[mFront];
@@ -75,7 +93,7 @@ namespace Training {
             throw new InvalidOperationException ("Stack is empty");
       }
 
-      /// <summary>Method will double the size of list if the count exceeds the capacity</summary>
+      /// <summary>Method will double the size of que if the count exceeds the capacity</summary>
       private void ResizeArray () {
          var temp = new T[Capacity * 2];
          for (int i = 0; i < Capacity; i++) {
