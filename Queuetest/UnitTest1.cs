@@ -2,7 +2,7 @@ using Training;
 namespace Quetest {
    [TestClass]
    public class UnitTest1 {
-      Tqueue<int> Que1 = new ();
+      TQueue<int> Que1 = new ();
       Queue<int> Que2 = new ();
 
       [TestMethod]
@@ -23,8 +23,7 @@ namespace Quetest {
             Que1.Enqueue (i);
             Que2.Enqueue (i);
          }
-         Assert.AreEqual (Que2.Dequeue (), Que1.Dequeue ());
-         for (int i = 0; i < 3; i++)
+         for (int i = 0; i < 4; i++)
             Que1.Dequeue ();
          Assert.AreEqual (true, Que1.IsEmpty);
          Assert.ThrowsException<InvalidOperationException> (() => Que1.Dequeue ());

@@ -22,24 +22,24 @@ namespace Training {
    }
    #endregion
 
-   #region class Tqueue----------------
+   #region class TQueue----------------
    /// <summary>Method to create a Custom Queue class</summary>
    /// <typeparam name="T"></typeparam>
-   public class Tqueue<T> {
+   public class TQueue<T> {
       public T a = default;
       #region Private Data------
       int mCount;
       int mFront;
       int mRear;
-      T[] mTqueue;
+      T[] mTQueue;
       #endregion --------------
 
       #region Constructor---------
-      public Tqueue () {
+      public TQueue () {
          mCount = 0;
          mFront = 0;
          mRear = 0;
-         mTqueue = new T[4];
+         mTQueue = new T[4];
       }
       #endregion
 
@@ -48,7 +48,7 @@ namespace Training {
       public int Count => mCount;
 
       /// <summary>Method gives maximum limit of elements in the list</summary>
-      public int Capacity => mTqueue.Length;
+      public int Capacity => mTQueue.Length;
 
       /// <summary>This method check the stack is empty or not and returns the boolen value accordingly</summary>
       public bool IsEmpty {
@@ -66,7 +66,7 @@ namespace Training {
       public void Enqueue (T a) {
          if (mCount == Capacity)
             ResizeArray ();
-         mTqueue[mRear] = a;
+         mTQueue[mRear] = a;
          mRear = (mRear + 1) % Capacity;
          mCount++;
       }
@@ -75,8 +75,7 @@ namespace Training {
       /// <returns>Returns the last element in the queue</returns>
       public T Dequeue () {
          if (mCount > 0) {
-            a = mTqueue[mFront];
-            mTqueue[mFront] = default;
+            a = mTQueue[mFront];
             mFront = (mFront + 1) % Capacity;
             mCount--;
             return a;
@@ -88,19 +87,19 @@ namespace Training {
       /// <returns>Return the first element of stack</returns>
       public T Peek () {
          if (mCount > 0)
-            return mTqueue[mFront];
+            return mTQueue[mFront];
          else
             throw new InvalidOperationException ("Stack is empty");
       }
 
       /// <summary>Method will double the size of que if the count exceeds the capacity</summary>
       private void ResizeArray () {
-         var temp = new T[Capacity * 2];
+         Array.Resize (ref mTQueue, Capacity * 2);
          for (int i = 0; i < Capacity; i++) {
-            temp[i] = mTqueue[mFront];
+            mTQueue[i] = mTQueue[mFront];
             mFront = (mFront + 1) % Capacity;
          }
-         (mTqueue, mRear, mFront) = (temp, mCount, 0);
+         (mRear, mFront) = (mCount, 0);
       }
       #endregion
    }
