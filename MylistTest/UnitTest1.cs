@@ -20,7 +20,7 @@ namespace MylistTest {
       }
 
       [TestMethod]
-      public void Removetest () {
+      public void RemoveTest () {
          for (int i = 15; i < 18; i++) {
             list.Add (i);
             mList.Add (i);
@@ -30,7 +30,7 @@ namespace MylistTest {
       }
 
       [TestMethod]
-      public void Thistest () {
+      public void ThisTest () {
          for (int i = 15; i < 18; i++) {
             list.Add (i);
             mList.Add (i);
@@ -67,11 +67,11 @@ namespace MylistTest {
       [TestMethod]
       public void ClearTest () {
          list.Clear (); mList.Clear ();
-         Assert.AreEqual (list.Count, mList.Count);
+         Assert.AreEqual (0, mList.Count);
       }
 
       [TestMethod]
-      public void Resizablecheck () {
+      public void ResizableCheck () {
          for (int i = 15; i < 18; i++) {
             list.Add (i);
             mList.Add (i);

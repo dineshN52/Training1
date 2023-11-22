@@ -91,7 +91,7 @@ namespace Training {
       /// <param name="item">Element to be inserted</param>
       /// <exception cref="ArgumentOutOfRangeException">If the index passed is out of range, it throws argument out of range exception</exception>
       public void Insert (int index, T item) {
-         if (CheckValidArgumentIndex (index, mCount)) {
+         if (CheckValidArgumentIndex (index)) {
             if (mCount == mCapacity)
                ResizeArray ();
             for (int i = mCount; i > index; i--)
@@ -104,7 +104,7 @@ namespace Training {
       /// <summary>Method remove the element in the particular index given</summary>
       /// <param name="index">Index in which elemnt to be removed</param>
       public void RemoveAt (int index) {
-         if (CheckValidArgumentIndex (index, mCount - 1)) {
+         if (CheckValidArgumentIndex (index)) {
             for (int i = index; i < mCount - 1; i++)
                myList[i] = myList[i + 1];
             mCount--;
@@ -117,20 +117,19 @@ namespace Training {
          Array.Resize (ref myList, mCapacity);
       }
 
-      /// <summary>This method check whether given index is within the limit of list or exceeds it</summary>
+      /// <summary>Method checks whether given index is within the limit of list</summary>
       /// <param name="index">Index to be checked</param>
-      /// <returns>Returns true if index is within limit, false otherwise</returns>
       /// <exception cref="IndexOutOfRangeException">If index is out of limit, throw index out of range exception</exception>
       public void CheckValidIndex (int index) {
          if (index < 0 || index >= mCount)
             throw new IndexOutOfRangeException ("Index out of range");
       }
 
-      /// <summary>Method check whether argument to be passed at partuclar index is within the limit of list</summary>
+      /// <summary>Method checks whether argument to be passed at partiuclar index is within the limit of list</summary>
       /// <param name="index">Index of the argument to be passed</param>
       /// <returns>Returns true if index of element is within the limit or false otherwise</returns>
       /// <exception cref="ArgumentOutOfRangeException">If index is out of limit, throw argument out of range exception</exception>
-      public bool CheckValidArgumentIndex (int index, int mCount) {
+      public bool CheckValidArgumentIndex (int index) {
          if (index >= 0 && index <= mCount)
             return true;
          else
