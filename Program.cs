@@ -81,10 +81,7 @@ namespace Training {
       }
 
       /// <summary>Method used to clear all the elements in the list</summary>
-      public void Clear () {
-         Array.Clear (myList);
-         mCount = 0;
-      }
+      public void Clear () => mCount = 0;
 
       /// <summary>Method insert the given element at the particular index given</summary>
       /// <param name="index">Index in which element should be inserted</param>
