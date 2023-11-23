@@ -20,10 +20,10 @@ namespace Pascals {
             if (uint.TryParse (Console.ReadLine (), out uint numRows)) {
                PascalsTriangle (numRows);
                break;
-            } else 
-               Console.WriteLine ("Invalid input. Please enter a valid non negative integer");         
+            } else
+               Console.WriteLine ("Invalid input. Please enter a valid non negative integer");
          }
-         
+
          Console.ReadKey ();
       }
       /// <summary>Method prints the pascal's triangle with given number of rows</summary>
@@ -31,13 +31,13 @@ namespace Pascals {
       static void PascalsTriangle (uint numRows) {
          int[,] triangle = new int[numRows, numRows];
          for (int i = 0; i < numRows; i++) {
-            Console.Write (new string (' ',4* ((int)numRows - i-1))); // Print leading spaces
+            Console.Write (new string (' ', 4 * ((int)numRows - i - 1))); // Print leading spaces
             for (int j = 0; j <= i; j++) {
                if (j == 0 || j == i)
                   triangle[i, j] = 1;
                else
                   triangle[i, j] = triangle[i - 1, j - 1] + triangle[i - 1, j];
-               if (IsEven (triangle[i, j]) && triangle[i, j]> 10)
+               if (IsEven (triangle[i, j]) && triangle[i, j] > 10)
                   Console.Write ($"{triangle[i, j],-7}");
                else
                   Console.Write ($"{triangle[i, j],-8}");
@@ -45,8 +45,8 @@ namespace Pascals {
             Console.WriteLine ();
          }
       }
-      
-      static bool IsEven(int a) {
+
+      static bool IsEven (int a) {
          if ((a % 2) == 0)
             return true;
          return false;
