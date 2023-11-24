@@ -94,11 +94,11 @@ namespace Training {
 
       /// <summary>Method will double the size of que if the count exceeds the capacity</summary>
       private void ResizeArray () {
-         Array.Resize (ref mTQueue, Capacity * 2);
-         for (int i = 0; i < Capacity; i++) {
-            mTQueue[i] = mTQueue[mFront];
-            mFront = (mFront + 1) % Capacity;
+         for (int i = 0; i < (mCount - mFront); i++) {
+            for (int j = 0; j < Capacity - 1; j++)
+               (mTQueue[0], mTQueue[j + 1]) = (mTQueue[j + 1], mTQueue[0]);
          }
+         Array.Resize (ref mTQueue, Capacity * 2);
          (mRear, mFront) = (mCount, 0);
       }
       #endregion
