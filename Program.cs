@@ -37,19 +37,10 @@ namespace Pascals {
                   triangle[i, j] = 1;
                else
                   triangle[i, j] = triangle[i - 1, j - 1] + triangle[i - 1, j];
-               if (IsEven (triangle[i, j]) && triangle[i, j] > 10)
-                  Console.Write ($"{triangle[i, j],-7}");
-               else
-                  Console.Write ($"{triangle[i, j],-8}");
+               Console.Write ($"{triangle[i, j],8}");
             }
             Console.WriteLine ();
          }
-      }
-
-      static bool IsEven (int a) {
-         if ((a % 2) == 0)
-            return true;
-         return false;
       }
       #endregion 
    }
