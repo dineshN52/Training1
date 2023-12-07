@@ -71,17 +71,18 @@ namespace EightQueens {
          int[] rotatedArray = new int[8];
          Array.Copy (b, temp, 8);
          for (int i = 0; i < 3; i++) {
-            Rotate90 (rotatedArray, temp);
+            rotatedArray = Rotate90 (rotatedArray, temp);
             if (IsPresent (rotatedArray) || IsMirror (rotatedArray))
                return true;
+            Array.Copy (rotatedArray, temp, 8);
          }
          return false;
 
          ///<summary>Method to rotate the given solution to 90 degrees</summary>
-         static void Rotate90 (int[] rotatedArray, int[] temp) {
+         static int[] Rotate90 (int[] rotatedArray, int[] temp) {
             for (int i = 0; i < 8; i++)
                rotatedArray[temp[i]] = 7 - i;
-            Array.Copy (rotatedArray, temp, 8);
+            return rotatedArray;
          }
       }
 
