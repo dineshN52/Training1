@@ -10,14 +10,18 @@
 // And the string ".e34" should throw a format exception with message"Input string .e34 is not in correct format
 // ---------------------------------------------------------------------------------------------------------------
 namespace Training {
+   #region Internal class Program---------------------------------------------
    internal class Program {
       /// <summary>Main method to implement the double parse</summary>
       static void Main () { }
    }
+   #endregion
 
+   #region Custom Double classs----------------------------
    /// <summary>Custom double class</summary>
    public class MyDouble {
 
+      #region Methods-------------------------------
       /// <summary>Method which performs try parse and output the double value of string if valid, 
       /// or throw exception</summary>
       /// <param name="s">Input string to be parsed</param>
@@ -125,6 +129,9 @@ namespace Training {
                final = factorialPart.Count (a => a is '+' or '-') == 1 && factorialPart[0] is '+' or '-';
             return final;
          }
+
       }
+      #endregion
    }
+   #endregion
 }
