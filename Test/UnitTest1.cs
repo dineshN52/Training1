@@ -1,69 +1,32 @@
 using Training;
+
 namespace Test {
    [TestClass]
    public class UnitTest1 {
+
+      readonly MyDouble db = new ();
+
       [TestMethod]
       public void PassTest () {
-         Assert.AreEqual (double.Parse ("0"), MyDouble.Parse ("0"));
-         Assert.AreEqual (double.Parse ("0.0"), MyDouble.Parse ("0.0"));
-         Assert.AreEqual (double.Parse ("50"), MyDouble.Parse ("50"));
-         Assert.AreEqual (double.Parse ("-50"), MyDouble.Parse ("-50"));
-         Assert.AreEqual (double.Parse ("4.58"), MyDouble.Parse ("4.58"));
-         Assert.AreEqual (double.Parse ("+4.58"), MyDouble.Parse ("+4.58"));
-         Assert.AreEqual (double.Parse ("-4.58"), MyDouble.Parse ("-4.58"));
-         Assert.AreEqual (double.Parse (".734"), MyDouble.Parse (".734"));
-         Assert.AreEqual (double.Parse ("+.734"), MyDouble.Parse ("+.734"));
-         Assert.AreEqual (double.Parse ("-.734"), MyDouble.Parse ("-.734"));
-         Assert.AreEqual (double.Parse ("0.734"), MyDouble.Parse ("0.734"));
-         Assert.AreEqual (double.Parse ("+0.734"), MyDouble.Parse ("+0.734"));
-         Assert.AreEqual (double.Parse ("-0.734"), MyDouble.Parse ("-0.734"));
-         Assert.AreEqual (double.Parse ("85."), MyDouble.Parse ("85."));
-         Assert.AreEqual (double.Parse ("+85."), MyDouble.Parse ("+85."));
-         Assert.AreEqual (double.Parse ("-85."), MyDouble.Parse ("-85."));
-         Assert.AreEqual (double.Parse ("5e85"), MyDouble.Parse ("5e85"));
-         Assert.AreEqual (double.Parse ("+5e85"), MyDouble.Parse ("+5e85"));
-         Assert.AreEqual (double.Parse ("-5e85"), MyDouble.Parse ("-5e85"));
-         Assert.AreEqual (double.Parse ("+5e+85"), MyDouble.Parse ("+5e+85"));
-         Assert.AreEqual (double.Parse ("+5e-85"), MyDouble.Parse ("+5e-85"));
-         Assert.AreEqual (double.Parse ("-5e-85"), MyDouble.Parse ("-5e-85"));
-         Assert.AreEqual (double.Parse ("-5e+85"), MyDouble.Parse ("-5e+85"));
-         Assert.AreEqual (double.Parse ("5e+85"), MyDouble.Parse ("5e+85"));
-         Assert.AreEqual (double.Parse ("5e-85"), MyDouble.Parse ("5e-85"));
-         Assert.AreEqual (double.Parse (".5e75"), MyDouble.Parse (".5e75"));
-         Assert.AreEqual (double.Parse (".5e+75"), MyDouble.Parse (".5e+75"));
-         Assert.AreEqual (double.Parse (".5e-75"), MyDouble.Parse (".5e-75"));
-         Assert.AreEqual (double.Parse ("0.5e75"), MyDouble.Parse ("0.5e75"));
-         Assert.AreEqual (double.Parse ("+0.5e75"), MyDouble.Parse ("+0.5e75"));
-         Assert.AreEqual (double.Parse ("-0.5e75"), MyDouble.Parse ("-0.5e75"));
-         Assert.AreEqual (double.Parse ("0.5e-75"), MyDouble.Parse ("0.5e-75"));
-         Assert.AreEqual (double.Parse ("+0.5e-75"), MyDouble.Parse ("+0.5e-75"));
-         Assert.AreEqual (double.Parse ("-0.5e-75"), MyDouble.Parse ("-0.5e-75"));
+         string[] inputs = { "0", "0.0", "50", "+50", "-50", "4.58", "+4.58", "-4.58", ".734", "+.734", "-7.34", "0.734", "+85.",
+                "+0.734", "-0.734", "5e85", "+5e85", "-5e85", "+5e+85", "+5e-85", "-5e-85", "-5e+85", "5e+85", "5e-85", "85.",
+                ".5e75", ".5e+75", ".5e-75", "0.5e75", "+0.5e75", "-0.5e75", "0.5e-75", "+0.5e-75", "-0.5e-75","-85.","0.1e2"
+            };
+         foreach (string input in inputs) {
+            var f1 = db.Parse (input);
+            var f2 = double.Parse (input);
+            Assert.AreEqual (f1, f2);
+         }
       }
 
       [TestMethod]
       public void FailTest () {
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("34+78"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("e34"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("+e34"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("-e34"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("e+34"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("e-34"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse (".e34"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("e3-4"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("4e3.4"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("3/.e34"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("34+e34"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("79.+e34"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("87.6e3+"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("67.6.34"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("67.6a34"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("67.8e3.4"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("67.8e1+4"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("67.8e3.4"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("67.8e3.4"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("67e8e3.4"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("+3+3.e-2"));
-         Assert.ThrowsException<FormatException> (() => MyDouble.Parse ("+3-3.e+2"));
+         string[] inputs = { "e34", "+e34", "-e34", "e+34", "e-34", ".e34", "e3-4", "4e3.4", "3/.e34", "34+e34", "79.+e34",
+                "87.6e3+", "67.6.34", "67.6a34", "67.8e3.4", "67.8e1+4", "67e8e3.4", "+3+3.e-2", "+3+3.e-2", "+3-3.e+2"
+            };
+         foreach (string input in inputs)
+            Assert.ThrowsException<FormatException> (() => db.Parse (input));
+         Assert.ThrowsException<ArgumentNullException> (() => db.Parse (""));
       }
    }
 }
