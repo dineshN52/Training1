@@ -8,14 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="a09.evaluator\**" />
     <Compile Remove="MylistTest\**" />
     <Compile Remove="Queuetest\**" />
     <Compile Remove="StackTest\**" />
     <Compile Remove="Test\**" />
+    <EmbeddedResource Remove="a09.evaluator\**" />
     <EmbeddedResource Remove="MylistTest\**" />
     <EmbeddedResource Remove="Queuetest\**" />
     <EmbeddedResource Remove="StackTest\**" />
     <EmbeddedResource Remove="Test\**" />
+    <None Remove="a09.evaluator\**" />
     <None Remove="MylistTest\**" />
     <None Remove="Queuetest\**" />
     <None Remove="StackTest\**" />
