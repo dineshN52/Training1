@@ -1,51 +1,61 @@
 ﻿namespace Eval;
 
+/// <summary>Class which helps to get tokens from the input string</summary>
 class Tokenizer {
-   public Tokenizer (Evaluator eval, string text) {
-      mText = text; mN = 0; mEval = eval;
-   }
-   readonly Evaluator mEval;  // The evaluator that owns this 
-   readonly string mText;     // The input text we're parsing through
-   int mN;                    // Position within the text
 
+   #region Constructor-------------
+   public Tokenizer (string text, Evaluator eval) {
+      mN = 0; mText = text; mEval = eval;
+   }
+   #endregion
+
+   #region Methods-------------------
+   /// <summary>Method to get next token at the end of one token</summary>
+   /// <returns>Return different token based on the charcater analysis in the input string</returns>
    public Token Next () {
       while (mN < mText.Length) {
-         char ch = char.ToLower (mText[mN++]);
+         char ch = mText[mN++];
          switch (ch) {
             case ' ' or '\t': continue;
             case (>= '0' and <= '9') or '.': return GetNumber ();
-            case '(' or ')': return new TPunctuation (ch);
-            case '+' or '-' or '*' or '/' or '^' or '=': return new TOpArithmetic (mEval, ch);
             case >= 'a' and <= 'z': return GetIdentifier ();
-            default: return new TError ($"Unknown symbol: {ch}");
+            case '+' or '-':
+               if (mText.StartsWith (ch) || mText[1] == '=') return new TUnary (mEval, ch);
+               return new TArithOper (mEval, ch);
+            case '+' or '-' or '*' or '/' or '^' or '=': return new TArithOper (mEval, ch);
+            case '(' or ')': return new TPunc (ch);
+            default: return new TError ($"Invalid character : {ch}");
          }
       }
       return new TEnd ();
-   }
 
-   Token GetIdentifier () {
-      int start = mN - 1;
-      while (mN < mText.Length) {
-         char ch = char.ToLower (mText[mN++]);
-         if (ch is >= 'a' and <= 'z') continue;
-         mN--; break;
+      /// <summary>Method to get identifier tokens like TFuncOper or TVariable</summary>
+      Token GetIdentifier () {
+         int initial = mN - 1;
+         while (mN < mText.Length) {
+            if (mText[mN++] is >= 'a' and <= 'z') continue;
+            mN--; break;
+         }
+         string sub = mText[initial..mN];
+         return Func.Contains (sub) ? new TFuncOper (mEval, sub) : new TVariable (mEval, sub);
       }
-      string sub = mText[start..mN];
-      if (mFuncs.Contains (sub)) return new TOpFunction (mEval, sub);
-      else return new TVariable (mEval, sub);
-   }
-   readonly string[] mFuncs = { "sin", "cos", "tan", "sqrt", "log", "exp", "asin", "acos", "atan" };
 
-   Token GetNumber () {
-      int start = mN - 1;
-      while (mN < mText.Length) {
-         char ch = mText[mN++];
-         if (ch is (>= '0' and <= '9') or '.') continue;
-         mN--; break;
+      /// <summary>Method to get number tokens like TLiteral</summary>
+      Token GetNumber () {
+         int initial = mN - 1;
+         while (mN < mText.Length) {
+            if (mText[mN++] is (>= '0' and <= '9') or '.') continue;
+            mN--; break;
+         }
+         return double.TryParse (mText[initial..mN], out double n) ? new TLiteral (n) : new TError ("Invalid number");
       }
-      // Now, mN points to the first character of mText that is not part of the number
-      string sub = mText[start..mN];
-      if (double.TryParse (sub, out double f)) return new TLiteral (f);
-      return new TError ($"Invalid number: {sub}");
    }
+   #endregion
+
+   #region Private data---------------
+   readonly string[] Func = { "sin", "cos", "tan", "sqrt", "log", "exp", "asin", "acos", "atan" };
+   readonly Evaluator mEval;
+   readonly string mText;
+   int mN;
+   #endregion
 }
