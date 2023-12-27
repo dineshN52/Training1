@@ -1,12 +1,12 @@
 ﻿namespace Eval;
 
 /// <summary>Custom Evalexception class for the evaluator</summary>
-class EvalException : Exception {
+public class EvalException : Exception {
    public EvalException (string message) : base (message) { }
 }
 
 /// <summary>Evaluator class which holds the evaluate method and basepriority</summary>
-class Evaluator {
+public class Evaluator {
    #region Constructor-----------
    public Evaluator () {
       BasePriority = 0;
@@ -39,7 +39,7 @@ class Evaluator {
       double result = mOperands.Pop ();
       if (Unary != null) result = double.Parse (Unary + result.ToString ());
       if (Variable != null) mVar[Variable.Name] = result;
-      return result;
+      return Math.Round (result, 5);
 
       /// <summary>Method whic modify the range of list based on the availability of unary or assignment expression</summary>
       void ModifyRange (List<Token> tokens) {

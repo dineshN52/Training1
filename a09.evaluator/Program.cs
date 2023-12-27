@@ -15,7 +15,7 @@ class Program {
          if (str == "") break;
          try {
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine (Math.Round (eval.Evaluate (str), 8));
+            Console.WriteLine (eval.Evaluate (str));
          } catch (Exception e) {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine (e.Message);
