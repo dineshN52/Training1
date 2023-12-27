@@ -1,5 +1,6 @@
 ﻿namespace Eval;
 
+#region Classes----------------------------
 /// <summary>Custom Evalexception class for the evaluator</summary>
 public class EvalException : Exception {
    public EvalException (string message) : base (message) { }
@@ -107,3 +108,4 @@ public class Evaluator {
    readonly Dictionary<string, double> mVar = new ();
    #endregion
 }
+#endregion

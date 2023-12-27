@@ -1,5 +1,6 @@
 ﻿namespace Eval;
 
+#region Classes-------------------------------
 /// <summary>Base class token where each type of token can be inherited</summary>
 abstract class Token { }
 
@@ -113,3 +114,4 @@ class TError : Token {
 class TEnd : Token {
    public override string ToString () => "end";
 }
+#endregion
