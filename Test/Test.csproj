@@ -15,4 +15,8 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\a09.evaluator\Eval.csproj" />
+  </ItemGroup>
+
 </Project>
