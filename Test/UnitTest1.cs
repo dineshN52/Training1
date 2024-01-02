@@ -26,7 +26,7 @@ namespace Test {
             };
          foreach (string input in inputs)
             Assert.ThrowsException<FormatException> (() => db.Parse (input));
-         Assert.ThrowsException<ArgumentNullException> (() => db.Parse (""));
+         Assert.ThrowsException<ArgumentNullException> (() => db.Parse (null));
       }
    }
 }

@@ -28,8 +28,12 @@ namespace Training {
       /// <returns>Return the output double value of string</returns>
       /// <exception cref="FormatException">Throws the format exception 
       /// if the input string is not in a correct format for double conversion</exception>
-      public double Parse (string s) => MyDouble.TryParse (s.ToUpper (), out double final) ? final :
-               throw new FormatException ($"Input string {s} was not in a correct format");
+      public double Parse (string s) {
+         if (s == null) throw new ArgumentNullException ("Input should not be empty");
+         if (MyDouble.TryParse (s.ToUpper (), out double final))
+            return final;
+         throw new FormatException ($"Input string {s} was not in a correct format");
+      }
 
       /// <summary>Tryparse method which checks the format 
       /// and produces the double value of input if it is valid, return false otherwise</summary>
@@ -38,8 +42,7 @@ namespace Training {
       /// <returns>Returns boolean value of true if format is corerct and false if invalid</returns>
       /// <exception cref="ArgumentNullException">If string input is null or empty it throws argumentnull exception</exception>
       public static bool TryParse (string s, out double num) {
-         num = 0;
-         if (s == "") throw new ArgumentNullException ("Input should not be empty");
+         num = 0;  
          if (!IsValid (s)) return false;
          num = IsExp || IsDot ? ConvertDouble (s) : int.Parse (s);
          return true;
@@ -52,8 +55,8 @@ namespace Training {
          string[] parts = IsExp ? str.Split ('E') : str.Split ('.');
          if (IsExp) {
             var integerPart = parts[0] == "" ? 1 : parts[0].Contains ('.') ? Convert (parts[0].Split ('.')) : int.Parse (parts[0]);
-            var factorialPart = Math.Pow (10, int.Parse (parts[1]));
-            return integerPart * factorialPart;
+            var fractionalPart = Math.Pow (10, int.Parse (parts[1]));
+            return integerPart * fractionalPart;
          } else
             return Convert (parts);
 
@@ -69,7 +72,7 @@ namespace Training {
       /// <param name="str">Input string</param>
       /// <returns>Returns true if string is in valid format or false, otherwise</returns>
       static bool IsValid (string str) {
-         int Ecount = 0, signCount = 0, dotCount = 0;
+         int eCount = 0, signCount = 0, dotCount = 0;
          foreach (var ch in str) {
             switch (ch) {
                case '+' or '-':
@@ -79,16 +82,15 @@ namespace Training {
                   if (++dotCount > 1) return false;
                   break;
                case 'E':
-                  if (++Ecount > 1) return false;
+                  if (++eCount > 1) return false;
                   break;
                default:
                   if (!char.IsDigit (ch)) return false;
                   break;
             }
          }
-         IsExp = Ecount >= 1; IsDot = dotCount >= 1;
-         if ((str[0] == '+' || str[0] == '-' || str[0] == '.' || char.IsDigit (str[0])) &&
-                !str.EndsWith ('+') && !str.EndsWith ('-') && !str.EndsWith ('E'))
+         IsExp = eCount >= 1; IsDot = dotCount >= 1;
+         if (!str.EndsWith ('+') && !str.EndsWith ('-') && !str.EndsWith ('E') && str[0]!='E')
             return IsExp || IsDot ? IsPartsValid (str) : IsSignsValid (str);
          return false;
 
@@ -106,18 +108,18 @@ namespace Training {
          /// and check both parts is in corretc format</summary>
          static bool IsPartsValid (string s) {
             string[] parts = IsExp ? s.Split ('E') : s.Split ('.');
-            (string integerPart, string factorialPart) = (parts[0], parts[1]);
+            (string integerPart, string fractionalPart) = (parts[0], parts[1]);
             if (IsExp)
                return integerPart != "" && integerPart != "." && IsSignsValid (integerPart)
-                && factorialPart != "" && !factorialPart.Contains ('.') && IsSignsValid (factorialPart);
-            return IsSignsValid (integerPart) && IsSignsValid (factorialPart);
+                && fractionalPart != "" && !fractionalPart.Contains ('.') && IsSignsValid (fractionalPart);
+            return IsSignsValid (integerPart) && IsSignsValid (fractionalPart);
          }
       }
       #endregion
 
       #region Properties-------------------
-      public static bool IsExp { get; private set; }
-      public static bool IsDot { get; private set; }
+      static bool IsExp { get; set; }
+      static bool IsDot { get; set; }
       #endregion
    }
    #endregion
