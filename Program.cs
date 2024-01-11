@@ -30,9 +30,9 @@ namespace Training {
       /// if the input string is not in a correct format for double conversion</exception>
       public double Parse (string s) {
          if (s == null) throw new ArgumentNullException ("Input should not be empty");
-         if (MyDouble.TryParse (s.ToUpper (), out double final))
+         if (TryParse (s.ToUpper (), out double final))
             return final;
-         throw new FormatException ($"Input string {s} was not in a correct format");
+         else throw new FormatException ($"Input string {s} was not in a correct format");
       }
 
       /// <summary>Tryparse method which checks the format 
@@ -42,17 +42,16 @@ namespace Training {
       /// <returns>Returns boolean value of true if format is corerct and false if invalid</returns>
       /// <exception cref="ArgumentNullException">If string input is null or empty it throws argumentnull exception</exception>
       public static bool TryParse (string s, out double num) {
-         num = 0;  
+         num = 0;
          if (!IsValid (s)) return false;
-         num = IsExp || IsDot ? ConvertDouble (s) : int.Parse (s);
+         num = IsExp || IsDot ? ConvertDouble () : int.Parse (s);
          return true;
       }
 
       /// <summary>Method to convert given input to double, only if it has exponential(e) in it</summary>
       /// <param name="str">Input string</param>
       /// <returns>Returns the double value of string</returns>
-      static double ConvertDouble (string str) {
-         string[] parts = IsExp ? str.Split ('E') : str.Split ('.');
+      static double ConvertDouble () {
          if (IsExp) {
             var integerPart = parts[0] == "" ? 1 : parts[0].Contains ('.') ? Convert (parts[0].Split ('.')) : int.Parse (parts[0]);
             var fractionalPart = Math.Pow (10, int.Parse (parts[1]));
@@ -90,15 +89,16 @@ namespace Training {
             }
          }
          IsExp = eCount >= 1; IsDot = dotCount >= 1;
-         if (!str.EndsWith ('+') && !str.EndsWith ('-') && !str.EndsWith ('E') && str[0]!='E')
-            return IsExp || IsDot ? IsPartsValid (str) : IsSignsValid (str);
+         if (IsExp || IsDot)
+            parts = IsExp ? str.Split ('E') : str.Split ('.');
+         if (!str.EndsWith ('E') && str[0] != 'E')
+            return parts.Length > 0 ? IsPartsValid () : IsSignsValid (str, signCount);
          return false;
 
          /// <summary>Method checks if the placement and position of signs are in correct format in the string</summary>
-         static bool IsSignsValid (string s) {
-            int count = s.Count (a => a is '+' or '-');
-            if (count >= 1) {
-               if (s[0] is '+' or '-' && count == 1) return true;
+         static bool IsSignsValid (string s, int signCount) {
+            if (signCount >= 1) {
+               if (s[0] is '+' or '-' && signCount == 1) return true;
                return false;
             }
             return true;
@@ -106,21 +106,23 @@ namespace Training {
 
          /// <summary>Method splits the string into two parts if it has "e" or "." 
          /// and check both parts is in corretc format</summary>
-         static bool IsPartsValid (string s) {
-            string[] parts = IsExp ? s.Split ('E') : s.Split ('.');
-            (string integerPart, string fractionalPart) = (parts[0], parts[1]);
-            if (IsExp)
-               return integerPart != "" && integerPart != "." && IsSignsValid (integerPart)
-                && fractionalPart != "" && !fractionalPart.Contains ('.') && IsSignsValid (fractionalPart);
-            return IsSignsValid (integerPart) && IsSignsValid (fractionalPart);
+         static bool IsPartsValid () {
+            bool final = IsSignsValid (parts[0], sCount (parts[0])) && IsSignsValid (parts[1], sCount (parts[1]));
+            if (IsExp && final)
+               return parts[0] != "" && parts[0] != "." && parts[1] != "" && !parts[1].Contains ('.');
+            return final;
          }
+
+         ///<summary>Method to give count of signs in a given string</summary>
+         static int sCount (string s) => s.Count (a => a is '+' or '-');
       }
       #endregion
 
       #region Properties-------------------
       static bool IsExp { get; set; }
       static bool IsDot { get; set; }
-      #endregion
+      static string[] parts = Array.Empty<string> ();
+      #endregion  
    }
    #endregion
 }
