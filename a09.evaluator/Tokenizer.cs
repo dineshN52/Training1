@@ -20,9 +20,9 @@ class Tokenizer {
             case (>= '0' and <= '9') or '.': return GetNumber ();
             case >= 'a' and <= 'z': return GetIdentifier ();
             case '+' or '-':
-               if (mText.StartsWith (ch) || mText[1] == '=') return new TUnary (mEval, ch);
+               if (mText.StartsWith (ch) || mText[mN-2] == '=') return new TUnary (mEval, ch);
                return new TArithOper (mEval, ch);
-            case '+' or '-' or '*' or '/' or '^' or '=': return new TArithOper (mEval, ch);
+            case '*' or '/' or '^' or '=': return new TArithOper (mEval, ch);
             case '(' or ')': return new TPunc (ch);
             default: return new TError ($"Invalid character : {ch}");
          }
