@@ -72,6 +72,7 @@ namespace Training {
       }
 
       /// <summary>Enumerator to store states of the function</summary>
+      /// State Diagram image: File://W://Training//StateDiagram.jpg
       enum EState { A, B, C, D, E, F, G, H, X };
    }
 }
