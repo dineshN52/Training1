@@ -13,6 +13,7 @@ namespace Training {
                CorrectSlns.Add (i);
             i++;
          }
+         CorrectSlns.Sort ();
          Console.WriteLine ($"Sum of all valid games:{CorrectSlns.Sum ()}");
       }
       public static bool TryCalculateRGB (string[] plays) {
@@ -20,7 +21,6 @@ namespace Training {
          foreach (string set in plays) {
             R = 0; G = 0; B = 0;
             string[] s = set.Split (',');
-            StringBuilder b = new (), r = new (), g = new ();
             Regex re = new (@"\b([0-9]|1[0-9])\s+red\b");
             Regex gr = new (@"\b([0-9]|1[0-9])\s+green\b");
             Regex bl = new (@"\b([0-9]|1[0-9])\s+blue\b");
