@@ -24,8 +24,8 @@ public class Evaluator {
    /// <returns>Return the output value</returns>
    /// <exception cref="EvalException">Returns an exception if the expression is incorrect</exception>
    public double Evaluate (string text) {
-      List<Token> tokens = new ();
       var tokenizer = new Tokenizer (text, this);
+      tokens.Clear ();
       while (true) {
          var token = tokenizer.Next ();
          if (token is TEnd) break;
@@ -42,24 +42,43 @@ public class Evaluator {
       if (Variable != null) mVar[Variable.Name] = result;
       return Math.Round (result, 5);
 
-      /// <summary>Method whic modify the range of list based on the availability of unary or assignment expression</summary>
+      /// <summary>Method which modify the range of list based on the availability of unary or assignment expression</summary>
       void ModifyRange (List<Token> tokens) {
-         if (tokens.Count >= 2 && (tokens[0] is TUnary or TVariable)) {
-            switch (tokens[0]) {
-               case TUnary unar when tokens.Count >= 2:
-                  Unary = unar;
-                  tokens.RemoveRange (0, 1);
-                  break;
-               case TVariable tvariable when tokens[1] is TArithOper { Op: '=' } && tokens.Count >= 3:
-                  if (tokens[2] is TUnary unary) {
-                     Unary = unary;
-                     tokens.RemoveRange (0, 3);
-                  } else
-                     tokens.RemoveRange (0, 2);
-                  Variable = tvariable;
-                  break;
+         bool l;
+         if (tokens.Count >= 2 && (tokens.Any (x => x is TUnary or TVariable))) {
+            for (int j = 0; j <= tokens.Count; j++) {
+               switch (tokens[0]) {
+                  case TUnary unar when tokens.Count >= 2:
+                     Unary = unar;
+                     tokens.RemoveRange (0, 1);
+                     break;
+                  case TVariable tvariable when tokens.Count >= 3 && tokens[1] is TArithOper { Op:'='}:
+                     Variable = tvariable;
+                     tokens.RemoveRange (0, 1); 
+                     break;
+                  case TArithOper { Op: '=' } ar:
+                     tokens.RemoveRange (0, 1);
+                     break;
+                  
+               }
             }
+            //switch (tokens[0]) {
+            //   case TUnary unar when tokens.Count >= 2:
+            //      Unary = unar;
+            //      tokens.RemoveRange (0, 1);
+            //      break;
+            //   case TVariable tvariable when tokens[1] is TArithOper { Op: '=' } && tokens.Count >= 3:
+            //      if (tokens[2] is TUnary unary) {
+            //         Unary = unary;
+            //         tokens.RemoveRange (0, 3);
+            //      } else
+            //         tokens.RemoveRange (0, 2);
+            //      Variable = tvariable;
+            //      break;
+            //}
          }
+         
+           
       }
 
       /// <summary>Method which separate and stores the opearors and operands in the individual stacks</summary>
@@ -77,6 +96,7 @@ public class Evaluator {
       }
    }
 
+   public Token GetPreviousToken () => tokens[^1];
    /// <summary>Method to get the value for the corresponding variable which are stored in the dictionary</summary>
    /// <param name="name">Varible name</param>
    /// <returns>Returns the value of the variable</returns>
@@ -84,6 +104,10 @@ public class Evaluator {
    public double GetVariable (string name) {
       if (mVar.TryGetValue (name, out double f)) return f;
       throw new EvalException ("Unknown variable");
+   }
+   public bool IsVariablePresent(string name) {
+      if (mVar.ContainsKey (name)) return true;
+      return false;
    }
 
    /// <summary>Method which evokes the actual mathematical operation between the two operands and returns the result of operation</summary>
@@ -106,6 +130,7 @@ public class Evaluator {
    readonly Stack<double> mOperands = new ();
    readonly Stack<TOperator> mOperators = new ();
    readonly Dictionary<string, double> mVar = new ();
+   List<Token> tokens = new ();
    #endregion
 }
 #endregion

@@ -2,7 +2,7 @@
 
 #region Classes-------------------------------
 /// <summary>Base class token where each type of token can be inherited</summary>
-abstract class Token { }
+public abstract class Token { }
 
 /// <summary>Class which inherits token class and has a property called value</summary>
 abstract class TNumber : Token {
