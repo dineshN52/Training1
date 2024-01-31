@@ -20,7 +20,7 @@ class Tokenizer {
             case (>= '0' and <= '9') or '.': return GetNumber ();
             case >= 'a' and <= 'z': return GetIdentifier ();
             case '+' or '-':
-               if (mText.StartsWith (ch) || mEval.GetPreviousToken() is TOperator or TPunc) return new TUnary (mEval, ch);
+               if (mText.StartsWith (ch) || mEval.GetLastToken () is TOperator or TPunc) return new TUnary (mEval, ch);
                return new TArithOper (mEval, ch);
             case '*' or '/' or '^' or '=': return new TArithOper (mEval, ch);
             case '(' or ')': return new TPunc (ch);

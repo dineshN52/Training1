@@ -33,82 +33,92 @@ public class Evaluator {
          tokens.Add (token);
       }
       TVariable? Variable = null;
-      TUnary? Unary = null;
+      List<TUnary> Unaries = new ();
+      TFuncOper? Func = null;
+      TArithOper? arith = null;
       ModifyRange (tokens);
       foreach (var t in tokens) Process (t);
       while (mOperators.Count > 0) Applyoperator ();
       double result = mOperands.Pop ();
-      if (Unary != null) result = double.Parse (Unary + result.ToString ());
+      if (Unaries.Count != 0) {
+         for (int i = 0; i < Unaries.Count; i++)
+            result = double.Parse (Unaries[^1] + "1") * result;
+      }
       if (Variable != null) mVar[Variable.Name] = result;
+      if (Func != null) result = Func.ApplyFunc (result);
       return Math.Round (result, 5);
 
       /// <summary>Method which modify the range of list based on the availability of unary or assignment expression</summary>
       void ModifyRange (List<Token> tokens) {
-         bool l;
-         if (tokens.Count >= 2 && (tokens.Any (x => x is TUnary or TVariable))) {
-            for (int j = 0; j <= tokens.Count; j++) {
-               switch (tokens[0]) {
-                  case TUnary unar when tokens.Count >= 2:
-                     Unary = unar;
-                     tokens.RemoveRange (0, 1);
+         int c = tokens.Count, l = c - 1;
+         if (c >= 2 && (tokens.Any (x => x is TUnary or TVariable))) {
+            foreach (Token token in tokens) {
+               switch (token) {
+                  case TUnary unar when c >= 2:
+                     if (tokens.IndexOf (unar) > 0) {
+                        if (this.GetPreviousToken (token) is TArithOper { Op: '-' } or TArithOper { Op: '+' }) break;
+                     }
+                     Unaries.Add (unar);
                      break;
-                  case TVariable tvariable when tokens.Count >= 3 && tokens[1] is TArithOper { Op:'='}:
+                  case TVariable tvariable when c >= 3 && tokens[1] is TArithOper { Op: '=' }:
                      Variable = tvariable;
-                     tokens.RemoveRange (0, 1); 
                      break;
                   case TArithOper { Op: '=' } ar:
-                     tokens.RemoveRange (0, 1);
+                     arith = ar;
                      break;
-                  
+                  case TFuncOper func when c >= 3 && tokens[1] is TUnary or TVariable:
+                     Func = func;
+                     break;
                }
             }
-            //switch (tokens[0]) {
-            //   case TUnary unar when tokens.Count >= 2:
-            //      Unary = unar;
-            //      tokens.RemoveRange (0, 1);
-            //      break;
-            //   case TVariable tvariable when tokens[1] is TArithOper { Op: '=' } && tokens.Count >= 3:
-            //      if (tokens[2] is TUnary unary) {
-            //         Unary = unary;
-            //         tokens.RemoveRange (0, 3);
-            //      } else
-            //         tokens.RemoveRange (0, 2);
-            //      Variable = tvariable;
-            //      break;
-            //}
+            if (Unaries.Count != 0) {
+               foreach (var unar in Unaries)
+                  tokens.Remove (unar);
+            }
+            if (Variable != null) tokens.Remove (Variable);
+            if (Func != null) tokens.Remove (Func);
+            if (arith != null) tokens.Remove (arith);
          }
-         
-           
       }
 
       /// <summary>Method which separate and stores the opearors and operands in the individual stacks</summary>
       void Process (Token t) {
          switch (t) {
             case TNumber num:
-               mOperands.Push (num.Value); break;
+               if (tokens.IndexOf (num) > 0) {
+                  if (tokens.Count >= 2 && this.GetPreviousToken (num) is TUnary un) {
+                     Evaluator evals = new ();
+                     mOperands.Push (evals.Evaluate (un + num.Value.ToString ()));
+                  } else
+                     mOperands.Push (num.Value);
+               } else
+                  mOperands.Push (num.Value);
+               break;
             case TOperator op:
                while (mOperators.Count > 0 && mOperators.Peek ().Priority > op.Priority)
                   Applyoperator ();
-               mOperators.Push (op); break;
+               if (op is TUnary) break;
+               mOperators.Push (op);
+               break;
             case TPunc p:
                BasePriority += p.Punc == '(' ? 10 : -10; break;
          }
       }
    }
 
-   public Token GetPreviousToken () => tokens[^1];
+   /// <summary>Method to get the previous token in the token list</summary>
+   /// <param name="token">Input token whose previous token to be found</param>
+   /// <returns>Returns the previous token in the token list</returns>
+   public Token GetPreviousToken (Token token) => tokens[tokens.IndexOf (token) - 1];
+
+   /// <summary>Method to return the last token in the tokens list</summary>
+   public Token GetLastToken () => tokens[^1];
+   
    /// <summary>Method to get the value for the corresponding variable which are stored in the dictionary</summary>
    /// <param name="name">Varible name</param>
    /// <returns>Returns the value of the variable</returns>
    /// <exception cref="EvalException">Return exception if the variable is not present in the dictionary</exception>
-   public double GetVariable (string name) {
-      if (mVar.TryGetValue (name, out double f)) return f;
-      throw new EvalException ("Unknown variable");
-   }
-   public bool IsVariablePresent(string name) {
-      if (mVar.ContainsKey (name)) return true;
-      return false;
-   }
+   public double GetVariable (string name) => mVar.TryGetValue (name, out double f) ? f : throw new EvalException ("Unknown variable");
 
    /// <summary>Method which evokes the actual mathematical operation between the two operands and returns the result of operation</summary>
    /// <exception cref="EvalException">Return exception if input expression is wrong</exception>
