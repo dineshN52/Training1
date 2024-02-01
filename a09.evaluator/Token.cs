@@ -29,6 +29,7 @@ class TVariable : TNumber {
 abstract class TOperator : Token {
    protected TOperator (Evaluator eval) => mEval = eval;
    public abstract int Priority { get; }
+   public int FinalPriority { get; set; }
    readonly protected Evaluator mEval;
 }
 

@@ -95,7 +95,8 @@ public class Evaluator {
                   mOperands.Push (num.Value);
                break;
             case TOperator op:
-               while (mOperators.Count > 0 && mOperators.Peek ().Priority > op.Priority)
+               op.FinalPriority = BasePriority + op.Priority;
+               while (mOperators.Count > 0 && mOperators.Peek ().FinalPriority > op.Priority)
                   Applyoperator ();
                if (op is TUnary) break;
                mOperators.Push (op);
