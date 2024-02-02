@@ -25,7 +25,7 @@ public class Evaluator {
    /// <exception cref="EvalException">Returns an exception if the expression is incorrect</exception>
    public double Evaluate (string text) {
       var tokenizer = new Tokenizer (text, this);
-      tokens.Clear ();
+      tokens.Clear (); mOperands.Clear (); mOperators.Clear ();
       while (true) {
          var token = tokenizer.Next ();
          if (token is TEnd) break;
@@ -114,7 +114,6 @@ public class Evaluator {
 
    /// <summary>Method to return the last token in the tokens list</summary>
    public Token GetLastToken () => tokens[^1];
-   
    /// <summary>Method to get the value for the corresponding variable which are stored in the dictionary</summary>
    /// <param name="name">Varible name</param>
    /// <returns>Returns the value of the variable</returns>
