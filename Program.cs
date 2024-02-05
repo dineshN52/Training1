@@ -24,26 +24,23 @@ namespace Training {
       }
 
       public static ComplexNumber operator + (ComplexNumber c1, ComplexNumber c2) {
-         int finalReal = c1.realPart + c2.realPart;
-         int finalImaginary = c1.imaginaryPart + c2.imaginaryPart;
+         int finalReal = c1.realPart + c2.realPart, finalImaginary = c1.imaginaryPart + c2.imaginaryPart;
          return new ComplexNumber (finalReal, finalImaginary);
       }
 
       public static ComplexNumber operator - (ComplexNumber c1, ComplexNumber c2) {
-         int finalReal = c1.realPart - c2.realPart;
-         int finalImaginary = c1.imaginaryPart - c2.imaginaryPart;
+         int finalReal = c1.realPart - c2.realPart, finalImaginary = c1.imaginaryPart - c2.imaginaryPart;
          return new ComplexNumber (finalReal, finalImaginary);
       }
 
       public ComplexNumber Parse (string input) {
-         StringBuilder real = new ();
-         StringBuilder imaginary = new ();
+         StringBuilder real = new (), imaginary = new ();
          for (int i = 0; i < input.Length; i++) {
-            char currentDigit = input[i];
             if (i + 1 == input.Length) break;
-            char nextDigit = input[i + 1];
+            char currentDigit = input[i], nextDigit = input[i + 1];
             switch (currentDigit) {
-               case var _ when (char.IsNumber (currentDigit) && (char.IsNumber (nextDigit) || char.IsLetter (nextDigit)) && nextDigit == 'i'):
+               case var _ when (char.IsNumber (currentDigit) && (char.IsNumber (nextDigit) 
+               || char.IsLetter (nextDigit)) && nextDigit == 'i'):
                   imaginary.Append (currentDigit);
                   break;
                case var _ when char.IsNumber (currentDigit):
@@ -51,8 +48,7 @@ namespace Training {
                   break;
             }
          }
-         int RealPart = int.Parse (real.ToString ());
-         int ImaginaryPart = int.Parse (imaginary.ToString ());
+         int RealPart = int.Parse (real.ToString ()), ImaginaryPart = int.Parse (imaginary.ToString ());
          ComplexNumber n = new (RealPart, ImaginaryPart);
          return n;
       }
