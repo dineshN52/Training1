@@ -5,7 +5,7 @@
 // Program.cs
 // Creating a custom Double ended Queue
 // Includes creation of all properties like count, capacity, IsEmpty and methods like
-// HEnqueue, HDequeue(),TEnqueue, TDequeue().
+// HEnqueue, HDequeue(), TEnqueue, TDequeue().
 // Custom Queue method should also be able to throw exception whenever necesaary
 // Like Dequeue an element from the queue which is empty should produce Inavalidoperation Exception.
 // -------------------------------------------------------------------------------------------------
@@ -14,7 +14,6 @@ namespace Training {
    class Program {
       #region method---------------
       /// <summary>Main method where the class is implemented</summary>
-      /// <param name="args"></param>
       public static void Main () { }
       #endregion
    }
@@ -22,15 +21,7 @@ namespace Training {
 
    #region class TQueue----------------
    /// <summary>Method to create a Custom Queue class</summary>
-   /// <typeparam name="T"></typeparam>
    public class TQueue<T> {
-      public T a = default;
-      #region Private Data------
-      int mCount;
-      int mFront;
-      int mRear;
-      T[] mTQueue;
-      #endregion --------------
 
       #region Constructor---------
       public TQueue () {
@@ -77,7 +68,7 @@ namespace Training {
       /// <returns>Returns the first element added on the head side</returns>
       public T HDequeue () {
          if (mCount > 0) {
-            a = mTQueue[mFront];
+            T a = mTQueue[mFront];
             mFront = (mFront + 1) % Capacity;
             mCount--;
             return a;
@@ -90,23 +81,40 @@ namespace Training {
       public T TDequeue () {
          if (mCount > 0) {
             mRear = mRear == 0 ? mCount - 1 : (mRear - 1) % Capacity;
-            a = mTQueue[mRear];
             mCount--;
-            return a;
+            return mTQueue[mRear];
          } else
             throw new InvalidOperationException ("Queue is empty");
       }
 
       /// <summary>Method will double the size of que if the count exceeds the capacity</summary>
-      private void ResizeArray () {
-         for (int i = 0; i < (mCount - mFront); i++) {
-            for (int j = 0; j < Capacity - 1; j++)
-               (mTQueue[0], mTQueue[j + 1]) = (mTQueue[j + 1], mTQueue[0]);
+      void ResizeArray () {
+         if (mFront != 0) {
+            ReverseArray (0, mFront - 1);
+            ReverseArray (mFront, Capacity - 1);
+            ReverseArray (0, Capacity - 1);
          }
          Array.Resize (ref mTQueue, Capacity * 2);
          (mFront, mRear) = (0, mCount);
       }
+
+      /// <summary>Method to reverse the positions of the elements in array</summary>
+      /// <param name="start">Start position of the array</param>
+      /// <param name="end">End position of the array</param>
+      void ReverseArray (int start, int end) {
+         while (start < end) {
+            (mTQueue[start], mTQueue[end]) = (mTQueue[end], mTQueue[start]);
+            start++; end--;
+         }
+      }
       #endregion
+
+      #region Private Data------
+      int mCount;
+      int mFront;
+      int mRear;
+      T[] mTQueue;
+      #endregion --------------
    }
    #endregion
 }
