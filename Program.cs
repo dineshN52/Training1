@@ -67,45 +67,31 @@ namespace Training {
       /// <summary>Method to Deque the element from head side of the queue</summary>
       /// <returns>Returns the first element added on the head side</returns>
       public T HDequeue () {
-         if (mCount > 0) {
-            T a = mTQueue[mFront];
-            mFront = (mFront + 1) % Capacity;
-            mCount--;
-            return a;
-         } else
-            throw new InvalidOperationException ("Queue is empty");
+         if (mCount <= 0) throw new InvalidOperationException ("Queue is empty");
+         T a = mTQueue[mFront];
+         mFront = (mFront + 1) % Capacity;
+         mCount--;
+         return a;
       }
 
       /// <summary>Method to Deque the element from tail side of the queue</summary>
       /// <returns>Returns the first element added on tail side</returns>
       public T TDequeue () {
-         if (mCount > 0) {
-            mRear = mRear == 0 ? mCount - 1 : (mRear - 1) % Capacity;
-            mCount--;
-            return mTQueue[mRear];
-         } else
-            throw new InvalidOperationException ("Queue is empty");
+         if (mCount <= 0) throw new InvalidOperationException ("Queue is empty");
+         mRear = mRear == 0 ? mCount - 1 : (mRear - 1) % Capacity;
+         mCount--;
+         return mTQueue[mRear];
       }
 
       /// <summary>Method will double the size of que if the count exceeds the capacity</summary>
       void ResizeArray () {
+         T[] newQue = new T[Capacity * 2];
          if (mFront != 0) {
-            ReverseArray (0, mFront - 1);
-            ReverseArray (mFront, Capacity - 1);
-            ReverseArray (0, Capacity - 1);
-         }
-         Array.Resize (ref mTQueue, Capacity * 2);
-         (mFront, mRear) = (0, mCount);
-      }
-
-      /// <summary>Method to reverse the positions of the elements in array</summary>
-      /// <param name="start">Start position of the array</param>
-      /// <param name="end">End position of the array</param>
-      void ReverseArray (int start, int end) {
-         while (start < end) {
-            (mTQueue[start], mTQueue[end]) = (mTQueue[end], mTQueue[start]);
-            start++; end--;
-         }
+            Array.Copy (mTQueue, mFront, newQue, 0, mCount - mFront);
+            Array.Copy (mTQueue, 0, newQue, mCount - mFront, mFront);
+         } else
+            Array.Copy (mTQueue, newQue, mCount);
+         (mTQueue, mFront, mRear) = (newQue, 0, mCount);
       }
       #endregion
 

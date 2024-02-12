@@ -6,47 +6,47 @@ namespace Test {
 
       [TestMethod]
       public void PropertiesTest () {
-         TQueue<int> mQue = new ();
-         Assert.IsTrue (mQue.IsEmpty);
-         mQue.TEnqueue (1);
-         Assert.IsFalse (mQue.IsEmpty);
-         mQue.TEnqueue (2);
-         mQue.TEnqueue (3);
-         Assert.AreEqual (3, mQue.Count);
-         mQue.TEnqueue (4);
-         Assert.AreEqual (4, mQue.Count);
-         Assert.AreEqual (4, mQue.Capacity);
-         mQue.TEnqueue (5);
-         Assert.AreEqual (8, mQue.Capacity);
+         TQueue<int> Que = new ();
+         Assert.IsTrue (Que.IsEmpty);
+         Que.TEnqueue (1);
+         Assert.IsFalse (Que.IsEmpty);
+         Que.TEnqueue (2);
+         Que.TEnqueue (3);
+         Assert.AreEqual (3, Que.Count);
+         Que.TEnqueue (4);
+         Assert.AreEqual (4, Que.Count);
+         Assert.AreEqual (4, Que.Capacity);
+         Que.TEnqueue (5);
+         Assert.AreEqual (8, Que.Capacity);
       }
 
       [TestMethod]
       public void PassTest () {
-         TQueue<int> mQue = new ();
-         mQue.TEnqueue (1);
-         mQue.TEnqueue (2);
-         mQue.TEnqueue (3);
-         mQue.TEnqueue (4);
-         Assert.AreEqual (1, mQue.HDequeue ());
-         mQue.HEnqueue (5);
-         Assert.AreEqual (4, mQue.TDequeue ());
-         mQue.TEnqueue (6);
-         Assert.AreEqual (6, mQue.TDequeue ());
-         mQue.TEnqueue (7);
-         Assert.AreEqual (5, mQue.HDequeue ());
-         mQue.TEnqueue (8);
-         mQue.HEnqueue (9);
-         mQue.TEnqueue (10);
-         Assert.AreEqual (9, mQue.HDequeue ());
+         TQueue<int> Que = new ();
+         Que.TEnqueue (1);
+         Que.TEnqueue (2);
+         Que.TEnqueue (3);
+         Que.TEnqueue (4);
+         Assert.AreEqual (1, Que.HDequeue ());
+         Que.HEnqueue (5);
+         Assert.AreEqual (4, Que.TDequeue ());
+         Que.TEnqueue (6);
+         Assert.AreEqual (6, Que.TDequeue ());
+         Que.TEnqueue (7);
+         Assert.AreEqual (5, Que.HDequeue ());
+         Que.TEnqueue (8);
+         Que.HEnqueue (9);
+         Que.TEnqueue (10);
+         Assert.AreEqual (9, Que.HDequeue ());
       }
 
       [TestMethod]
       public void Failtest () {
-         TQueue<int> mQue = new ();
-         mQue.HEnqueue (1);
-         mQue.TDequeue ();
-         _ = Assert.ThrowsException<InvalidOperationException> (() => mQue.TDequeue ());
-         _ = Assert.ThrowsException<InvalidOperationException> (() => mQue.HDequeue ());
+         TQueue<int> Que = new ();
+         Que.HEnqueue (1);
+         Que.TDequeue ();
+         _ = Assert.ThrowsException<InvalidOperationException> (() => Que.TDequeue ());
+         _ = Assert.ThrowsException<InvalidOperationException> (() => Que.HDequeue ());
       }
    }
 }
