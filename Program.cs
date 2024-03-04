@@ -7,8 +7,8 @@
 // A custom class called FileParser is created along with methods like TryFileParse and Parse to get path of file 
 // Any valuable string with the file path format will be parsed and a tuple named filePath with drive,path,filename,
 // extension will be stored 
-// For example,the "C:/dineshn/words.txt" will have output of filepath(C,C:\dineshn,words,.txt) for TryFileParse method
-// And will have "C:\\dineshn\\words.txt" as output for Parse method
+// For example,the "C:/dineshn/words.txt" will have output of filepath(C,C:\DINESHN,WORDS,.TXT) for TryFileParse method
+// And will have "C:\\DINESHN\\WORDS.TXT" as output for Parse method
 // --------------------------------------------------------------------------------------------------------------------
 namespace Training {
    internal class Program {
@@ -18,8 +18,7 @@ namespace Training {
       public static void Main () {
          Console.WriteLine ("Enter the file path or directory");
          string input = Console.ReadLine ();
-         FileParser fp = new ();
-         if (fp.TryFileParse (input, out (string drive, string path, string filename, string extension) f))
+         if (FileParser.TryFileParse (input, out (string drive, string path, string filename, string extension) f))
             Console.WriteLine ($"Drive:{f.drive}\nPath:{f.path}\nFileName:{f.filename}\nExtension:{f.extension}");
       }
    }
@@ -30,25 +29,26 @@ namespace Training {
       /// <param name="input">Input file path as string</param>
       /// <param name="filePath">filepath tuple which holds drive, path, filename and extension of the file</param>
       /// <returns>Returns the filepath tuple</returns>
-      public bool TryFileParse (string input, out (string drive, string path, string fileName, string extension) filePath) {
+      public  static bool TryFileParse (string input, out (string drive, string path, string fileName, string extension) filePath) {
          EState s = EState.A;
          Action none = () => { }, todo;
+         input = $"{input.Trim ().ToUpper()}^";
          string drive = null, path = null, fileName = null, extension = null;
-         foreach (var ch in input.Trim () + "^") {
+         foreach (var ch in input) {
             (s, todo) = (s, ch) switch {
                (EState.A, >= 'A' and <= 'Z') => (EState.B, () => drive += ch),
                (EState.B, ':') => (EState.C, none),
                (EState.C or EState.E, '\\' or '/') => (EState.D, () => path += ch),
-               (EState.D or EState.E, (>= 'A' and <= 'Z') or (>= 'a' and <= 'z')) => (EState.E, () => path += ch),
+               (EState.D or EState.E, >= 'A' and <= 'Z') => (EState.E, () => path += ch),
                (EState.E, '.') => (EState.F, none),
-               (EState.F or EState.G, >= 'a' and <= 'z') => (EState.G, () => extension += ch),
+               (EState.F or EState.G, >= 'A' and <= 'Z') => (EState.G, () => extension += ch),
                (EState.G, '^') => (EState.H, none),
                _ => (EState.X, none),
             };
             todo ();
          }
          if (s == EState.H) {
-            path = string.Join ("", path.Replace ("/", "\\"));
+            path = path.Replace ("/", "\\");
             string[] parts = path.Split ('\\');
             fileName = parts[^1];
             path = drive + ':' + string.Join ("\\", parts.SkipLast (1));
