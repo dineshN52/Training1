@@ -29,4 +29,9 @@
     <None Remove=".gitignore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Data\dict-5.txt" />
+    <EmbeddedResource Include="Data\puzzle-5.txt" />
+  </ItemGroup>
+
 </Project>
